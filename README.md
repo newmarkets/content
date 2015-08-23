@@ -90,3 +90,12 @@ To run the test suite, simply run `phpunit` in the root of the
 directory (even if that is /vendor/newmarkets/content). Please make sure to add tests
 and run the test suite before submitting pull requests for any contributions.
 
+Translators
+-----------
+
+Translators are very welcome. To build a new language translation, copy the `translations/en/messages.php`
+file into a new directory using the standard ISO abbreviation for the language.
+For instance, the translation file for French would go in `translations/fr/messages.php`.
+Leave all of the keys in the array unchanged. Translate the right-hand side
+(the array values) into the target language. Don't translate any word that begins
+with a colon (:). The vertical bar separates singular and plural forms of the word.

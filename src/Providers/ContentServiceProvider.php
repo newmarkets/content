@@ -1,8 +1,10 @@
-<?php namespace NewMarket\Providers;
+<?php namespace NewMarket\Content\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
-class ContentServiceProvider extends ServiceProvider {
+class ContentServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the service provider.
@@ -17,7 +19,7 @@ class ContentServiceProvider extends ServiceProvider {
     public function boot()
     {
 
-        $dir = dir(__DIR__) . DIRECTORY_SEPARATOR;
+        $dir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
         $this->loadFrom($dir);
         $this->publishFrom($dir);
         $this->setRoutes();
@@ -43,12 +45,13 @@ class ContentServiceProvider extends ServiceProvider {
 
     }
 
-    protected function publishFrom($dir) {
+    protected function publishFrom($dir)
+    {
 
         // This will allow developers to copy all of our views to the vendor directory
         // by running the Artisan command vendor:publish. We use the 'views' tag so the
         // views can be published without other elements using the --tag="views" option.
-        $this->publishes(["{$dir}views" => base_path('resources/views/vendor/newmarket/content')], 'views');
+        $this->publishes(["{$dir}views" => base_path('resources/views/vendor/newmarkets/content')], 'views');
 
         // This copies our config file to the application's config directory. This also
         // has a tag so it can be published seperately using --tag="config".
@@ -60,11 +63,12 @@ class ContentServiceProvider extends ServiceProvider {
         // This copies our public assets like javascript and css to the application's public directory.
         // It will be in the vendor/newmarket/content subdirectory. Again, the tag allows these assets to be
         // published seperately using --tag="assets".
-        $this->publishes(["{$dir}public" => public_path('vendor/newmarket/content')], 'assets');
+        $this->publishes(["{$dir}public" => public_path('vendor/newmarkets/content')], 'assets');
 
     }
 
-    protected function setRoutes() {
+    protected function setRoutes()
+    {
 
         // As a default, we will set up a route with the keyword "content" in the URL. Everything under
         // that will be interpreted as an article belonging to some category. The developer can change
@@ -77,6 +81,10 @@ class ContentServiceProvider extends ServiceProvider {
         Route::resource('article', 'ArticleController');
         Route::resource('category', 'CategoryController');
 
+    }
+
+    public static function compiles() {
+        // @todo: fill out the list of compiled classes
     }
 
 }
