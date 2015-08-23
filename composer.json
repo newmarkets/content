@@ -1,0 +1,28 @@
+{
+    "name": "newmarkets/content",
+    "type": "library",
+    "description": "Content Management for Laravel 5.1.",
+    "keywords": ["laravel", "content", "blog", "cms"],
+    "homepage": "http://www.carsonsoftwareengineering.com",
+    "authors": [
+        {
+            "name": "Michal Carson",
+            "email": "michal.carson@carsonsoftwareengineering.com",
+            "role": "Developer",
+            "homepage": "http://www.carsonsoftwareengineering.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "laravel/framework": "~5.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "NewMarket\\Content\\": "src/"
+        }
+    }
+}
