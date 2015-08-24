@@ -1,10 +1,21 @@
 <?php namespace NewMarket\Content\Providers;
 
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use NewMarket\Content\Commands\Install;
+use NewMarket\Content\Models\Article;
+use NewMarket\Content\Models\Category;
 
 class ContentServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+
+    public static function compiles()
+    {
+        // @todo: fill out the list of compiled classes
+    }
 
     /**
      * Register the service provider.
@@ -13,7 +24,36 @@ class ContentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerFacades();
+        $this->registerInstallCommand();
+    }
+
+    protected function registerFacades()
+    {
+
+        App::bind('article', function () {
+            return new Article;
+        });
+
+        App::bind('category', function () {
+            return new Category;
+        });
+
+        $loader = AliasLoader::getInstance();
+        $loader->alias('Article', 'NewMarket\\Content\\Facades\\Article');
+        $loader->alias('Category', 'NewMarket\\Content\\Facades\\Category');
+
+    }
+
+    protected function registerInstallCommand()
+    {
+
+        $this->app['content::install'] = $this->app->share(function () {
+            return new Install;
+        });
+
+        $this->commands('content::install');
+
     }
 
     public function boot()
@@ -81,10 +121,6 @@ class ContentServiceProvider extends ServiceProvider
         Route::resource('article', 'ArticleController');
         Route::resource('category', 'CategoryController');
 
-    }
-
-    public static function compiles() {
-        // @todo: fill out the list of compiled classes
     }
 
 }

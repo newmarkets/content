@@ -42,13 +42,15 @@ Add the service provider to your Laravel configuration in config/app.php
 
     return [
         'providers' => [
-            NewMarket/Content/Providers/ContentServiceProvider.php::class
+            NewMarket\Content\Providers\ContentServiceProvider::class
         ]
     ];
 
-Publish the javascript and CSS files to your application's public directory.
+Run the `content:install` command via Artisan to set up database tables and
+copy views, config files, javascript files and CSS into your application directories.
+(For an alternative installation method, see below.)
 
-    php artisan vendor:publish --provider="NewMarket\Providers\ContentServiceProvider" --tag="assets"
+    php artisan content:install
 
 The content management system will run at this point. You can find it under
 http://yourdomain.com/content.
@@ -66,7 +68,7 @@ This will publish any vendor content into your application directories. You may
 want to be a little more discriminating. To publish only this package, add
 the --provider tag.
 
-    php artisan vendor:publish --provider="NewMarket\Providers\ContentServiceProvider"
+    php artisan vendor:publish --provider="NewMarket\Content\Providers\ContentServiceProvider"
 
 If you only want the views, the config file or the public files, add the --tag
 option to the Artisan command.
