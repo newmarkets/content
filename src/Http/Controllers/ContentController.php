@@ -1,87 +1,88 @@
 <?php
 
-namespace NewMarket\Http\Controllers;
+namespace NewMarket\Content\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use NewMarket\Http\Requests;
-use NewMarket\Http\Controllers\Controller;
+//use NewMarket\Http\Requests;
+use NewMarket\Content\Http\Controllers\Controller;
+use NewMarket\Content\Facades\Article;
+use NewMarket\Content\Facades\Category;
 
 class ContentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * List all the available categories.
+     * @param Request $request
+     * @return string
      */
-    public function index()
-    {
-        //
+    public function showCategories(Request $request) {
+
+        $latest = Config('content.show_latest');
+        if ($latest) {
+            return $this->showLatest($request);
+        }
+
+        return 'List of categories';
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
+     * Preview the most recent articles from any category.
+     * @param Request $request
+     * @return string
      */
-    public function create()
-    {
-        //
+    public function showLatest(Request $request) {
+        return 'Most recent articles';
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
+     * Display a list of articles in a category.
+     * @param Request $request
+     * @return string
      */
-    public function store(Request $request)
-    {
-        //
+    public function showCategory(Request $request) {
+
+        $latest = Config('content.show_category_latest');
+        if ($latest) {
+            return $this->showCategoryLatest($request);
+        }
+
+        return 'List of articles';
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * Preview the most recent articles in this category.
+     * @param Request $request
+     * @return string
      */
-    public function show($id)
-    {
-        //
+    public function showCategoryLatest(Request $request) {
+        return 'Preview articles in category';
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * Show the full text of a single article.
+     * @param Request $request
+     * @return string
      */
-    public function edit($id)
-    {
-        //
+    public function showArticle(Request $request) {
+
+        $path = $request->segment(1);
+        $cat = $request->route('category');
+        $art = $request->route('article');
+
+        $article = $this->getArticle($cat, $art);
+
+        return "This is the $cat $art article you requested under $path";
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    protected function getArticle($cat, $art) {
+
+        $catid = Category::getId($cat);
+        return Article::getArticle($catid, $art);
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+    protected function validateCategory($category) {
+
     }
 }

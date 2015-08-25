@@ -113,18 +113,26 @@ class ContentServiceProvider extends ServiceProvider
     protected function setRoutes()
     {
 
-//        if (! $this->app->routesAreCached()) {
-//            // As a default, we will set up a route with the keyword "content" in the URL. Everything under
-//            // that will be interpreted as an article belonging to some category. The developer can change
-//            // this in their own routes. For instance, they might want to route everything to the content
-//            // management system that isn't handled by another route.
-//            Route::resource('content', 'ContentController');
-//
-//            // Here we define the administrative routes. These contro handle creation and editing of
-//            // articles and categories. They use RESTful interfaces.
-//            Route::resource('article', 'ArticleController');
-//            Route::resource('category', 'CategoryController');
-//        }
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
+        Route::group(['namespace' => 'NewMarket\\Content\\Http\\Controllers'], function ($router) {
+
+            $paths = (array) Config::get('content.path');
+
+            foreach ($paths as $path) {
+                $router->get("$path/{category}/{article}", 'ContentController@showArticle');
+                $router->get("$path/{category}", 'ContentController@showCategory');
+                $router->get($path, 'ContentController@showCategories');
+            }
+
+            // Here we define the administrative routes. These handle creation and editing of articles and
+            // categories. They use RESTful interfaces so they could be called from a javascript application.
+            $router->resource('article', 'ArticleController');
+            $router->resource('category', 'CategoryController');
+
+        });
 
     }
 

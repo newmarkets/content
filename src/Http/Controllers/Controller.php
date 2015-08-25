@@ -1,6 +1,6 @@
 <?php
 
-namespace NewMarket\Http\Controllers;
+namespace NewMarket\Content\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

@@ -17,6 +17,25 @@ return [
     'article_prefix' => 'article_',
 
     // This is a prefix for the category properties.
-    'category_prefix' => 'category_'
+    'category_prefix' => 'category_',
+
+    // The "path" setting defines the URL root for the CMS. The default setting is "content" so the
+    // URLs would look like http://yourdomain.com/content/...
+    //
+    // This setting can be an array, in which case the CMS can be found under multiple root paths.
+    //     'path' => ['blog', 'news', 'market']
+    //
+    // This setting can be an empty string, in which case the CMS will pretty much take over the site.
+    // Developers need to ensure that CMS routes are added last so that any other specific routes
+    // are captured before the CMS is called.
+    'path' => 'content',
+
+    // This flag tells CMS to show a preview of the most recent articles in all categories when the
+    // URL looks like http:://yourdomain.com/content. The alternative is to list the categories available.
+    'show_latest' => true,
+
+    // This flag tells CMS to show a preview of the most recent articles in one category when the
+    // URL looks like http://yourdomain.com/content/category. The alternative is to list the articles.
+    'show_category_latest' => true
 
 ];
