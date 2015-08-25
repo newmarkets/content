@@ -37,19 +37,19 @@ class Install extends Command {
         $this->info('Publishing CMS config file');
         $this->call('vendor:publish', [
             '--provider' => 'NewMarket\\Content\\Providers\\ContentServiceProvider',
-            '--tag' => 'config'
+            '--tag' => ['config']
         ]);
 
         $this->info('Publishing CMS view files');
         $this->call('vendor:publish', [
             '--provider' => 'NewMarket\\Content\\Providers\\ContentServiceProvider',
-            '--tag' => 'views'
+            '--tag' => ['views']
         ]);
 
         $this->info('Publishing CMS public assets');
         $this->call('vendor:publish', [
             '--provider' => 'NewMarket\\Content\\Providers\\ContentServiceProvider',
-            '--tag' => 'assets'
+            '--tag' => ['assets']
         ]);
 
         $this->info('Creating CMS database tables');

@@ -2,8 +2,10 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 use NewMarket\Content\Commands\Install;
 use NewMarket\Content\Models\Article;
 use NewMarket\Content\Models\Category;
@@ -63,6 +65,7 @@ class ContentServiceProvider extends ServiceProvider
         $this->loadFrom($dir);
         $this->publishFrom($dir);
         $this->setRoutes();
+        $this->registerViewComposer();
 
     }
 
@@ -72,7 +75,7 @@ class ContentServiceProvider extends ServiceProvider
         // Tell Laravel where to find our stock New Market views.
         // Laravel will first look in resources/views/vendor/newmarket/content for a local
         // override. Developers should put customized views into that directory.
-        $this->loadViewsFrom("{$dir}views", 'content');
+        $this->loadViewsFrom("{$dir}views", 'newmarkets\content');
 
         // Tell Laravel where to find our translation files.
         $this->loadTranslationsFrom("{$dir}translations", 'content');
@@ -110,16 +113,25 @@ class ContentServiceProvider extends ServiceProvider
     protected function setRoutes()
     {
 
-        // As a default, we will set up a route with the keyword "content" in the URL. Everything under
-        // that will be interpreted as an article belonging to some category. The developer can change
-        // this in their own routes. For instance, they might want to route everything to the content
-        // management system that isn't handled by another route.
-        Route::resource('content', 'ContentController');
+//        if (! $this->app->routesAreCached()) {
+//            // As a default, we will set up a route with the keyword "content" in the URL. Everything under
+//            // that will be interpreted as an article belonging to some category. The developer can change
+//            // this in their own routes. For instance, they might want to route everything to the content
+//            // management system that isn't handled by another route.
+//            Route::resource('content', 'ContentController');
+//
+//            // Here we define the administrative routes. These contro handle creation and editing of
+//            // articles and categories. They use RESTful interfaces.
+//            Route::resource('article', 'ArticleController');
+//            Route::resource('category', 'CategoryController');
+//        }
 
-        // Here we define the administrative routes. These contro handle creation and editing of
-        // articles and categories. They use RESTful interfaces.
-        Route::resource('article', 'ArticleController');
-        Route::resource('category', 'CategoryController');
+    }
+
+    protected function registerViewComposer() {
+
+        $extends = Config::get('content.extends');
+        View::composer($extends, 'NewMarket\\Content\\Http\\Composers\\MasterComposer');
 
     }
 
