@@ -33,8 +33,9 @@ class CreateArticleTable extends Migration
             $table->boolean('active')->default(true);
             $table->string('filename')->nullable();
             $table->string('filename_description')->nullable();
-            $table->foreign('category_id', 'fk_article_category1');
-            $table->unique(['cateogory_id', 'slug'], 'un_category_slug');
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id', 'fk_article_category1')->references('id')->on('category');
+            $table->unique(['category_id', 'slug'], 'un_category_slug');
         });
     }
 
