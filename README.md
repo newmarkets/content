@@ -1,6 +1,9 @@
 NewMarket Content Management
 ======
 
+This project is a work-in-progress. Check back in a week or contact me
+if you want to help.
+
 This package is a Content Management System for Laravel 5.1. It could
 be used for a simple blog. Articles within the system are divided into
 categories--as many as you like. Security is based on the categories;

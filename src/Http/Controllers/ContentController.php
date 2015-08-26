@@ -72,13 +72,14 @@ class ContentController extends Controller
 
         $article = $this->getArticle($cat, $art);
 
-        return "This is the $cat $art article you requested under $path";
+        return view('newmarkets\content::article', ['article' => $article]);
+
     }
 
     protected function getArticle($cat, $art) {
 
         $catid = Category::getId($cat);
-        return Article::getArticle($catid, $art);
+        return Article::findByCatidSlug($catid, $art);
 
     }
 
