@@ -65,7 +65,7 @@ class ContentServiceProvider extends ServiceProvider
         $this->loadFrom($dir);
         $this->publishFrom($dir);
         $this->setRoutes();
-        $this->registerViewComposer();
+//        $this->registerViewComposer();
 
     }
 

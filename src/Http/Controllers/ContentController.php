@@ -72,7 +72,7 @@ class ContentController extends Controller
 
         $article = $this->getArticle($cat, $art);
 
-        return view('newmarkets\content::article', ['article' => $article]);
+        return view('newmarkets\content::article', ['article' => $article, 'tags' => ['dis', 'dat', 'd uder ting']]);
 
     }
 

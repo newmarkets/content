@@ -8,16 +8,10 @@ return [
     // content to your master.blade.php template.
     // This setting can also be an array of template names. The default setting causes CMS content
     // to be available in the news, blog and story templates.
-    'extends' => ['news', 'blog', 'story'],
-
-    // This is a prefix for the names under which the CMS article properties will be available.
-    // For instance, using the default prefix the article title will be available as article_title.
-    // Add a @yields tag to your template where you want the content to appear. That tag would look like
-    //    @yields('article_title')
-    'article_prefix' => 'article_',
-
-    // This is a prefix for the category properties.
-    'category_prefix' => 'category_',
+    'extends' => 'app',
+    'yields' => 'content',
+    'style' => 'style',
+    'script' => 'script',
 
     // The "path" setting defines the URL root for the CMS. The default setting is "content" so the
     // URLs would look like http://yourdomain.com/content/...

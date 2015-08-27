@@ -1,0 +1,20 @@
+div.cms_title h3 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+p.cms_author {
+    margin-bottom: 0;
+}
+p.cms_date,
+p.cms_source,
+p.cms_source_link {
+    font-size: smaller;
+    margin-bottom: 0;
+}
+div.cms_tags {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+div.cms_text {
+    font-size: larger;
+}

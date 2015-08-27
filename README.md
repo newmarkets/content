@@ -13,7 +13,7 @@ within each category separately from other categories.
 Requirements
 ------------
 
- * PHP 5.3+ (PHP 5.4 recommended)
+ * PHP 5.5.9 (required by Laravel 5.1)
  * Laravel 5.1+
  * [Composer](http://getcomposer.org) for all package management and
    autoloading (may require command-line access)
