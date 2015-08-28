@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @author Michal Carson <michal.carson@carsonsoftwareengineering.com>
  *
- * @property integer id
- * @property date created_at
- * @property timestamp updated_at
- * @property timestamp deleted_at
- * @property integer sortorder
- * @property string path
- * @property string title
- * @property string subtitle
- * @property string description
- * @property string meta_title
- * @property string meta_keywords
- * @property string meta_description
- * @property string featured
- * @property string active
+ * @property-read integer $id
+ * @property-read timestamp $created_at
+ * @property-read timestamp $updated_at
+ * @property-read timestamp $deleted_at
+ * @property integer $sortorder
+ * @property string $path
+ * @property string $title
+ * @property string $subtitle
+ * @property string $description
+ * @property string $meta_title
+ * @property string $meta_keywords
+ * @property string $meta_description
+ * @property boolean $featured
+ * @property boolean $active
  *
  */
 class Category extends Model
@@ -44,28 +44,25 @@ class Category extends Model
 
     public static function getId($name) {
 
-        $id = \DB::table('category')->where('path', $name)->value('id');
-        return $id;
+        return self::where('path', $name)->value('id');
 
     }
 
     public static function getPublicCategories() {
 
-        $cats = \DB::table('category')
-            ->where('active', true)
+        return self::where('active', true)
             ->whereNull('deleted_at')
             ->orderBy('sortorder')
             ->get();
-        return $cats;
+
     }
 
     public static function findPublicCategory($path) {
 
-        $cat = \DB::table('category')
-            ->where('active', true)
+        return self::where('active', true)
             ->whereNull('deleted_at')
             ->where('path', $path)
             ->first();
-        return $cat;
+
     }
 }
