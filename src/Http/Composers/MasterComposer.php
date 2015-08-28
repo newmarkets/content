@@ -16,7 +16,7 @@ class MasterComposer {
 
         $factory = $view->getFactory();
         $prefix = Config::get('content.article_prefix');
-        $factory->make('newmarkets\content::article')->render();
+        $factory->make('newmarkets\content::article', $view->getData())->render();
 
         $sections = $factory->getSections();
 

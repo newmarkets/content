@@ -12,9 +12,9 @@
     <div class="container cms cms_content">
 
         <div class="row cms cms_title">
-            <h2 class="cms">{{ $article->title }}</h2>
+            <h1 class="cms">{{ $article->title }}</h1>
             @if (strlen($article->subtitle))
-                <h3 class="cms">{{ $article->subtitle }}</h3>
+                <h2 class="cms">{{ $article->subtitle }}</h2>
             @endif
         </div>
 
@@ -25,7 +25,7 @@
             </p>
             <p class="cms_date">
                 <span class="sr-only">Created: </span>
-                {{ $article->created_at }}
+                @shortdate($article->created_at)
             </p>
             @if (strlen($article->source_name))
                 <p class="cms_source">
@@ -56,4 +56,20 @@
 
     </div>
 
+@endsection
+
+@section(Config::get('content.title'))
+    {{ $article->title }}
+@endsection
+
+@section(Config::get('content.meta_title'))
+    {{ $article->meta_title }}
+@endsection
+
+@section(Config::get('content.meta_keywords'))
+    {{ $article->meta_keywords }}
+@endsection
+
+@section(Config::get('content.meta_description'))
+    {{ $article->meta_description }}
 @endsection

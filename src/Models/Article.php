@@ -32,13 +32,30 @@ class Article extends Model
         return 'howdy';
     }
 
-    public static function findByCatidSlug($category_id, $slug) {
+    public static function findPublicArticle($category_id, $slug) {
 
         $article = \DB::table('article')
             ->where('category_id', $category_id)
             ->where('slug', $slug)
+            ->where('active', true)
+            ->whereNull('deleted_at')
+            ->whereRaw('(live_at <= now() or live_at is null)')
+            ->whereRaw('(down_at >= now() or down_at is null)')
             ->first();
         return $article;
 
+    }
+
+    public static function listPublicFromCategory($category_id) {
+
+        $articles = \DB::table('article')
+            ->where('category_id', $category_id)
+            ->where('active', true)
+            ->whereNull('deleted_at')
+            ->whereRaw('(live_at <= now() or live_at is null)')
+            ->whereRaw('(down_at >= now() or down_at is null)')
+            ->orderBy('created_at')
+            ->get();
+        return $articles;
     }
 }

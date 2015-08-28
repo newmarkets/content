@@ -1,6 +1,17 @@
-div.cms_title h3 {
+div.container.cms .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+div.cms_list .cms_title {
+    font-size: larger;
+}
+div.cms_title h2 {
     margin-top: 10px;
     margin-bottom: 20px;
+}
+div.cms_category h1.cms_title_and_sub,
+div.cms_category h2.cms_title_and_sub {
+    display: inline-block;
 }
 p.cms_author {
     margin-bottom: 0;
@@ -16,5 +27,15 @@ div.cms_tags {
     margin-bottom: 40px;
 }
 div.cms_text {
+    margin-top: 40px;
+    margin-bottom: 30px;
     font-size: larger;
+}
+div.cms_list .cms_text {
+    margin-top: 0;
+    font-size: smaller;
+}
+div.cms_magazine .cms_text {
+    margin-top: 30px;
+    margin-bottom: 40px;
 }

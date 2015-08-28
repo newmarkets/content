@@ -66,6 +66,7 @@ class ContentServiceProvider extends ServiceProvider
         $this->publishFrom($dir);
         $this->setRoutes();
 //        $this->registerViewComposer();
+        $this->extendBlade();
 
     }
 
@@ -119,11 +120,13 @@ class ContentServiceProvider extends ServiceProvider
 
         Route::group(['namespace' => 'NewMarket\\Content\\Http\\Controllers'], function ($router) {
 
-            $paths = (array) Config::get('content.path');
+//            $paths = (array) Config::get('content.path');
+            $cats = Category::getPublicCategories();
 
-            foreach ($paths as $path) {
-                $router->get("$path/{category}/{article}", 'ContentController@showArticle');
-                $router->get("$path/{category}", 'ContentController@showCategory');
+            foreach ($cats as $category) {
+                $path = $category->path;
+                $router->get("$path/index", 'ContentController@showCategory');
+                $router->get("$path/{article}", 'ContentController@showArticle');
                 $router->get($path, 'ContentController@showCategories');
             }
 
@@ -140,6 +143,34 @@ class ContentServiceProvider extends ServiceProvider
 
         $extends = Config::get('content.extends');
         View::composer($extends, 'NewMarket\\Content\\Http\\Composers\\MasterComposer');
+
+    }
+
+    protected function extendBlade() {
+
+        \Blade::directive('shortdate', function($expression) {
+            return "<?php echo date('Y-M-d', strtotime($expression)); ?>";
+        });
+
+        \Blade::directive('preview', function($expression) {
+            if(strlen($expression) <= 400) {
+                return "<?php echo $expression; ?>";
+            }
+            $short = substr($expression, 0, 400);
+            $pos = strrpos($short, ' ');
+            $short = substr($expression, 0, $pos);
+            return "<?php echo $short; ?>";
+        });
+
+        \Blade::directive('longPreview', function($expression) {
+            if(strlen($expression) <= 2000) {
+                return "<?php echo $expression; ?>";
+            }
+            $short = substr($expression, 0, 2000);
+            $pos = strrpos($short, ' ');
+            $short = substr($expression, 0, $pos);
+            return "<?php echo $short; ?>";
+        });
 
     }
 
