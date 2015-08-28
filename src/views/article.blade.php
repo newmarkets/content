@@ -51,7 +51,7 @@
         @endif
 
         <div class="row cms cms_text">
-            <p>{{ $article->content }}</p>
+            {!! $article->renderMarkdown($article->content) !!}
         </div>
 
     </div>

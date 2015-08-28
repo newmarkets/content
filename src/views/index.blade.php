@@ -43,7 +43,7 @@
             </div>
             <div class="row cms cms_text">
                 <div class="{{ $col }}-12 cms_preview">
-                    <p>@preview($article->content)</p>
+                    {!! $article->renderMarkdown($article->preview()) !!}
                 </div>
             </div>
         @endforeach

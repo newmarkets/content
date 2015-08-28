@@ -74,7 +74,7 @@
 
             <div class="row cms cms_text">
                 <div class="{{ $col }}-12 cms_preview">
-                    <p>@longPreview($article->content)</p>
+                    {!! $article->renderMarkdown($article->longPreview()) !!}
                 </div>
             </div>
         @endforeach

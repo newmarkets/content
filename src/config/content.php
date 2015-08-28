@@ -6,7 +6,7 @@ return [
     //    'extends' => 'master'
     // effectively puts an @extends('master') at the top of the CMS templates and thereby wraps CMS
     // content in your master.blade.php template.
-    'extends' => 'app',
+    'extends' => 'master',
 
     // This is the name of the section for the CMS content. Using the default value ("content"), the CMS
     // content will appear in your template wherever you place the @yields('content') directive.
@@ -39,6 +39,12 @@ return [
     // when the URL is underlined, which frequently happens in an emails or documents. Therefore our default
     // setting is the hyphen.
     'slug_separator' => '-',
+
+    // We use a package called Slugify that can handle international character sets. Slugify offers a few
+    // customizations. You can read more about them here https://github.com/cocur/slugify.
+    'slug_lowercase' => true,
+    'slug_regexp' => null,
+    'slug_ruleset' => '',
 
     // The layout of the package templates uses Bootstrap. Bootstrap's Grid offers a choice of screen widths
     // which is selected by the class prefix of the grid column. @see http://getbootstrap.com/css/#grid-options

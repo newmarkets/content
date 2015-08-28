@@ -12,7 +12,11 @@ use NewMarket\Content\Models\Category;
 
 class ContentServiceProvider extends ServiceProvider
 {
-    protected $defer = true;
+    protected $defer = false;
+
+//    public function __construct() {
+//        die('scum');
+//    }
 
     public static function compiles()
     {
@@ -150,26 +154,6 @@ class ContentServiceProvider extends ServiceProvider
 
         \Blade::directive('shortdate', function($expression) {
             return "<?php echo date('Y-M-d', strtotime($expression)); ?>";
-        });
-
-        \Blade::directive('preview', function($expression) {
-            if(strlen($expression) <= 400) {
-                return "<?php echo $expression; ?>";
-            }
-            $short = substr($expression, 0, 400);
-            $pos = strrpos($short, ' ');
-            $short = substr($expression, 0, $pos);
-            return "<?php echo $short; ?>";
-        });
-
-        \Blade::directive('longPreview', function($expression) {
-            if(strlen($expression) <= 2000) {
-                return "<?php echo $expression; ?>";
-            }
-            $short = substr($expression, 0, 2000);
-            $pos = strrpos($short, ' ');
-            $short = substr($expression, 0, $pos);
-            return "<?php echo $short; ?>";
         });
 
     }
