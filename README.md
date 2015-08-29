@@ -10,11 +10,15 @@ categories--as many as you like. Security is based on the categories;
 users may have access to read, create, edit, delete, publish and unpublish
 within each category separately from other categories.
 
+Content in the system can use Markdown syntax for formatting.
+
 Requirements
 ------------
 
  * PHP 5.5.9 (required by Laravel 5.1)
  * Laravel 5.1+
+ * Slugify (curco/slugify)
+ * CommonMark (league/commonmark)
  * [Composer](http://getcomposer.org) for all package management and
    autoloading (may require command-line access)
 

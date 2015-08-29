@@ -39,3 +39,12 @@ div.cms_magazine .cms_text {
     margin-top: 30px;
     margin-bottom: 40px;
 }
+.cms_content .glyphicon.green {
+    color: green;
+}
+.cms_content .glyphicon.red {
+    color: red;
+}
+.cms_content .glyphicon.neutral {
+    color: #333;
+}

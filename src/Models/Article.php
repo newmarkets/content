@@ -75,7 +75,19 @@ class Article extends Model
 
     }
 
-    public static function listPublicFromCategory($category_id) {
+    public static function listFromCategoryPublic($category_id) {
+
+        return self::where('category_id', $category_id)
+            ->where('active', true)
+            ->whereNull('deleted_at')
+            ->whereRaw('(live_at <= now() or live_at is null)')
+            ->whereRaw('(down_at >= now() or down_at is null)')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+    }
+
+    public static function listFromCategoryAdmin($category_id) {
 
         return self::where('category_id', $category_id)
             ->where('active', true)

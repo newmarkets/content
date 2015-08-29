@@ -1,14 +1,26 @@
 <?php
 
-namespace NewMarket\Http\Controllers;
+namespace NewMarket\Content\Http\Controllers;
 
 use Illuminate\Http\Request;
-use NewMarket\Http\Controllers\Controller;
-//use NewMarket\Http\Requests;
-//use NewMarket\Http\Controllers\Controller;
+use NewMarket\Content\Http\Controllers\Controller;
+use NewMarket\Content\Facades\Article;
+use NewMarket\Content\Facades\Category;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArticleController extends Controller
 {
+    /**
+     * Instantiate a new instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+//        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +28,16 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $this->getCategory();
+        if($this->category) {
+
+            $articles = Article::listFromCategoryAdmin($this->category->id);
+            return view('newmarkets\content::admin.article.index', [
+                'category' => $this->category,
+                'articles' => $articles
+            ]);
+        }
+        throw new NotFoundHttpException;
     }
 
     /**
@@ -32,10 +53,9 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store()
     {
         //
     }
@@ -59,17 +79,16 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("You want to edit article $id");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
     }
@@ -83,5 +102,9 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSlug($title) {
+        return Article::makeSlug($title);
     }
 }

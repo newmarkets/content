@@ -124,19 +124,26 @@ class ContentServiceProvider extends ServiceProvider
 
         Route::group(['namespace' => 'NewMarket\\Content\\Http\\Controllers'], function ($router) {
 
-//            $paths = (array) Config::get('content.path');
             $cats = Category::getPublicCategories();
 
             foreach ($cats as $category) {
+
                 $path = $category->path;
+
+                // This defines an administrative route. This controller handles creation and editing of categories.
+                // It uses a RESTful interface so it can be called from a javascript application.
+                $router->get("$path/article/slug", 'ArticleController@getSlug');
+                $router->resource("$path/article", 'ArticleController');
+
+                // These define the public routes for this category.
                 $router->get("$path/index", 'ContentController@showCategory');
                 $router->get("$path/{article}", 'ContentController@showArticle');
                 $router->get($path, 'ContentController@showCategories');
+
             }
 
-            // Here we define the administrative routes. These handle creation and editing of articles and
-            // categories. They use RESTful interfaces so they could be called from a javascript application.
-            $router->resource('article', 'ArticleController');
+            // This defines an administrative route. This controller handles creation and editing of categories.
+            // It uses a RESTful interface so it can be called from a javascript application.
             $router->resource('category', 'CategoryController');
 
         });
@@ -153,6 +160,9 @@ class ContentServiceProvider extends ServiceProvider
     protected function extendBlade() {
 
         \Blade::directive('shortdate', function($expression) {
+            if (is_null(with($expression))) {
+                return '';
+            }
             return "<?php echo date('Y-M-d', strtotime($expression)); ?>";
         });
 
