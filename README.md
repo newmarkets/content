@@ -17,11 +17,14 @@ Requirements
 
  * PHP 5.5.9 (required by Laravel 5.1)
  * Laravel 5.1+
- * Slugify (curco/slugify)
- * CommonMark (league/commonmark)
+ * [CommonMark](https://github.com/league/commonmark) for translation of markdown content
  * [Composer](http://getcomposer.org) for all package management and
    autoloading (may require command-line access)
 
+Optional
+------------
+
+ * [Slugify](https://github.com/curco/slugify) may produce better results for non-English languages
 
 Installing with Composer
 -----

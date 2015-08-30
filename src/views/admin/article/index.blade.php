@@ -12,58 +12,53 @@
     <div class="container cms cms_content">
 
         <?php $col = Config::get('content.col') ?>
-        @foreach ($articles as $article)
-            <div class="row cms cms_article_detail">
-                <div class="{{ $col }}-1 cms_active">
-                    <span class="sr-only">Active: </span>
-                    @if ($article->active)
-                        <span class="glyphicon glyphicon-plus-sign green"></span>
-                    @else
-                        <span class="glyphicon glyphicon-minus-sign red"></span>
-                    @endif
-                    <span class="sr-only">Featured: </span>
-                    @if ($article->featured)
-                        <span class="glyphicon glyphicon-circle-arrow-up green"></span>
-                    @else
-                        <span class="glyphicon glyphicon-minus-sign neutral"></span>
-                    @endif
-                </div>
-                <div class="{{ $col }}-4 cms_title">
-                    <span class="sr-only">Title (click to edit): </span>
-                    <a href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/edit' }}">
-                        {{ $article->title }}
-                    </a>
-                </div>
-                <div class="{{ $col }}-2 cms_author">
-                    <span class="sr-only">Author: </span>
-                    {{ $article->author or '' }}
-                </div>
-                <div class="{{ $col }}-1 cms_date">
-                    <span class="sr-only">Created: </span>
-                    @shortdate($article->created_at)
-                </div>
-                <div class="{{ $col }}-1 cms_date">
-                    <span class="sr-only">Updated: </span>
-                    @shortdate($article->updated_at)
-                </div>
-                <div class="{{ $col }}-1 cms_date">
-                    <span class="sr-only">Live: </span>
-                    @shortdate($article->live_at)
-                </div>
-                <div class="{{ $col }}-1 cms_date">
-                    <span class="sr-only">Down: </span>
-                    @shortdate($article->down_at)
-                </div>
-                {{--@if (count($tags))--}}
-                    {{--<div class="{{ $col }}-1 cms_tags">--}}
-                        {{--<span class="sr-only">This article has been tagged for the following subjects.</span>--}}
-                        {{--@foreach($tags as $tag)--}}
-                            {{--{{ $tag }}--}}
-                        {{--@endforeach--}}
-                    {{--</div>--}}
-                {{--@endif--}}
+        <div class="row cms">
+            <div class="{{ $col }}-12">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>{{ Lang::get('content::messages.active') }}/{{ Lang::get('content::messages.featured') }}</th>
+                            <th>{{ Lang::get('content::messages.title') }} ({{ Lang::get('content::messages.click_to_edit') }})</th>
+                            <th>{{ Lang::get('content::messages.author') }}</th>
+                            <th>{{ Lang::get('content::messages.created') }}</th>
+                            <th>{{ Lang::get('content::messages.updated') }}</th>
+                            <th>{{ Lang::get('content::messages.live_at') }}</th>
+                            <th>{{ Lang::get('content::messages.down_at') }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($articles as $article)
+                            <tr>
+                                <td class="cms_icons">
+                                    @if ($article->active)
+                                        <span class="cms_active glyphicon glyphicon-plus-sign green"></span>
+                                    @else
+                                        <span class="cms_active glyphicon glyphicon-minus-sign red"></span>
+                                    @endif
+                                    @if ($article->featured)
+                                        <span class="cms_featured glyphicon glyphicon-circle-arrow-up green"></span>
+                                    @else
+                                        <span class="cms_featured glyphicon glyphicon-minus-sign neutral"></span>
+                                    @endif
+                                </td>
+                                <td class="cms_title">
+                                    <a href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/edit' }}">
+                                        {{ $article->title }}
+                                    </a>
+                                </td>
+                                <td>{{  Lang::get('content::messages.unknown') }}</td>
+                                <td>@shortdate($article->created_at)</td>
+                                <td>@shortdate($article->updated_at)</td>
+                                <td>@shortdate($article->live_at)</td>
+                                <td>@shortdate($article->down_at)</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
             </div>
-        @endforeach
+        </div>
     </div>
 
 @endsection

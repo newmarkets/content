@@ -1,5 +1,7 @@
 <?php namespace NewMarket\Content\Models;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cocur\Slugify\Slugify;
@@ -90,10 +92,7 @@ class Article extends Model
     public static function listFromCategoryAdmin($category_id) {
 
         return self::where('category_id', $category_id)
-            ->where('active', true)
             ->whereNull('deleted_at')
-            ->whereRaw('(live_at <= now() or live_at is null)')
-            ->whereRaw('(down_at >= now() or down_at is null)')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -101,16 +100,23 @@ class Article extends Model
 
     public static function makeSlug($title) {
 
-        $ruleset = Config::get('content.slug_ruleset');
-        $regexp = Config::get('content.slug_regexp');
+        if (class_exists('Slugify')) {
+            // use Slugify if it is available
+            $ruleset = Config::get('content.slug_ruleset');
+            $regexp = Config::get('content.slug_regexp');
 
-        $slugify = new Slugify($regexp, [
-            'lowercase' => Config::get('content.slug_lowercase')
-        ]);
-        if (strlen($ruleset)) {
-            $slugify->activateRuleset($ruleset);
+            $slugify = new Slugify($regexp, [
+                'lowercase' => Config::get('content.slug_lowercase')
+            ]);
+            if (strlen($ruleset)) {
+                $slugify->activateRuleset($ruleset);
+            }
+            return $slugify->slugify($title, Config::get('content.slug_separator'));
+
+        } else {
+            // use the standard Laravel slug function
+            return str_slug($title, Config::get('content.slug_separator'));
         }
-        return $slugify->slugify($title, Config::get('content.slug_separator'));
 
     }
 
@@ -118,13 +124,13 @@ class Article extends Model
 
         $content = $this->content;
 
-        if(strlen($content) <= $len) {
+        if(mb_strwidth($content, 'UTF-8') <= $len) {
             return $content;
         }
 
-        $short = substr($content, 0, $len);
+        $short = Str::limit($content, $len, '');
         $pos = strrpos($short, ' ');
-        $short = substr($content, 0, $pos);
+        $short = Str::limit($content, $pos);
 
         return $short;
 

@@ -79,7 +79,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        return view("You want to edit article $id");
+        return view('newmarkets\content::admin.article.edit');
     }
 
     /**
