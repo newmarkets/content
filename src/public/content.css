@@ -39,6 +39,11 @@ div.cms_magazine .cms_text {
     margin-top: 30px;
     margin-bottom: 40px;
 }
+.cms_content .glyphicon {
+    font-size: larger;
+    margin-right: 5px;
+    line-height: inherit;
+}
 .cms_content .glyphicon.green {
     color: green;
 }
@@ -47,4 +52,23 @@ div.cms_magazine .cms_text {
 }
 .cms_content .glyphicon.neutral {
     color: #333;
+}
+.cms_content form .divider {
+    color: #dddddd;
+    background-color: #555;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+}
+.cms_content form .tab-pane {
+    min-height: 300px;
+}
+.cms_content form #content {
+    margin: 30px 15px;
+}
+/* firefox-specific hack for responsive tables */
+@-moz-document url-prefix() {
+    fieldset { display: table-cell; }
 }

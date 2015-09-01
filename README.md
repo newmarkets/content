@@ -10,7 +10,9 @@ categories--as many as you like. Security is based on the categories;
 users may have access to read, create, edit, delete, publish and unpublish
 within each category separately from other categories.
 
-Content in the system can use Markdown syntax for formatting.
+Content in the system can use Markdown syntax for formatting. We are using
+[Pen](https://github.com/sofish/pen) as an editor with its optional markdown
+export option.
 
 Requirements
 ------------
@@ -25,6 +27,7 @@ Optional
 ------------
 
  * [Slugify](https://github.com/curco/slugify) may produce better results for non-English languages
+ * [Pen](https://github.com/sofish/pen) for editing article content
 
 Installing with Composer
 -----

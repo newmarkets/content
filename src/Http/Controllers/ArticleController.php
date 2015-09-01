@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use NewMarket\Content\Http\Controllers\Controller;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
+use NewMarket\Content\Http\Requests\ArticleRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArticleController extends Controller
@@ -55,9 +56,9 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(ArticleRequest $request)
     {
-        //
+        $this->request = $request;
     }
 
     /**
@@ -79,7 +80,16 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        return view('newmarkets\content::admin.article.edit');
+        $categories = Category::getPublicCategories();
+        $this->getCategory();
+        $category = $this->category;
+        $article = Article::find($id);
+
+        if ($category && $article) {
+            return view('newmarkets\content::admin.article.edit', compact('article', 'category', 'categories'));
+        }
+        throw new NotFoundHttpException;
+
     }
 
     /**

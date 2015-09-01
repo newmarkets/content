@@ -53,7 +53,8 @@ class Category extends Model
         return self::where('active', true)
             ->whereNull('deleted_at')
             ->orderBy('sortorder')
-            ->get();
+            ->get()
+            ->all();
 
     }
 
