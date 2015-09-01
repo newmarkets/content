@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+Here's a strange issue I ran into with Laravel 5.1. I had a service provider that was working just fine--registered in
+app.php, showing up in services.json and in the Composer autoload files. I installed a new package with Composer and
+wrote a little code to use that package in a model. I made a change to some data in the database (just text that would
+show on the screen). When I refreshed my page, I got a 404. The routes were not being found. On investigation, I found
+that the service provider was no longer being called, neither it's register nor it's boot function.
+
+I searched a bit and found a discussion of a similar problem under Laravel 4.0 and 4.1
+(https://github.com/laravel/framework/issues/2760). This suggested running Artisan clear-compiled or manually deleting
+the services.json file (/bootstrap/cache/services.json). One solution was rearranging the order of providers in
+config/app.php, which also should cause Laravel to recreate services.json.
+
+I tried every "clear" command in Artisan: clear-compiled, cache:clear, config:clear, route:clear and view:clear. This
+may seem a little desperate, but I wanted to eliminate all easy solutions since the issue above didn't end up with a
+solid explanation or reproducible scenario.
+
+The Composer
+</body>
+</html>
