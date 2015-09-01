@@ -1,14 +1,14 @@
 @extends(Config::get('content.extends'))
 
 @section(Config::get('content.style'))
-    <link rel="stylesheet" href="/js/vendor/pen/src/pen.css">
+    <link rel="stylesheet" href="/vendor/newmarkets/content/pen.css">
     <link rel="stylesheet" href="/vendor/newmarkets/content/content.css">
 @endsection
 
 @section(Config::get('content.script'))
-    <script src="/js/vendor/pen/src/pen.js"></script>
-    <script src="/js/vendor/pen/src/markdown.js"></script>
-    <script src="/packages/newmarkets/content/edit.js"></script>
+    <script src="/vendor/newmarkets/content/vendor/pen/src/pen.js"></script>
+    <script src="/vendor/newmarkets/content/vendor/pen/src/markdown.js"></script>
+    <script src="/vendor/newmarkets/content/edit.js"></script>
 @endsection
 
 @section(Config::get('content.yields'))
