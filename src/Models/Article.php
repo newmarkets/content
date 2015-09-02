@@ -100,7 +100,7 @@ class Article extends Model
 
     public static function makeSlug($title) {
 
-        if (class_exists('Slugify')) {
+        if (class_exists('\Cocur\Slugify\Slugify')) {
             // use Slugify if it is available
             $ruleset = Config::get('content.slug_ruleset');
             $regexp = Config::get('content.slug_regexp');

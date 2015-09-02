@@ -13,16 +13,32 @@
 
 @section(Config::get('content.yields'))
 
+    <?php $col = Config::get('content.col') ?>
+    <script>
+        var editorConfig = {
+            col: '{{ $col }}',
+            path: '{{ $category->path }}',
+            urlBase: '{{ (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] }}',
+            label: '{{ Lang::get('content::messages.content') }}',
+            contentSaved: '{{ Lang::get('content::messages.content_saved') }}',
+            stayMsg: '{{ Lang::get('content::messages.editor_stay_msg') }}',
+            placeholder: '{{ Lang::get('content::messages.editor_placeholder') }}'
+        };
+        editorConfig.thisUrl = editorConfig.urlBase + '{{ $_SERVER['REQUEST_URI'] }}';
+    </script>
+
     <div class="container cms cms_content">
         <h1>{{ Lang::get('content::messages.edit') }} {{ Lang::choice('content::messages.article', 1) }}</h1>
 
-        <?php $col = Config::get('content.col') ?>
         <form class="form-horizontal">
 
             <div class="form-group">
                 <div class="{{ $col }}-12">
                     <button type="submit" class="btn btn-primary">{{ Lang::get('content::messages.save') }}</button>
                     <button type="button" class="btn btn-default">{{ Lang::get('content::messages.cancel') }}</button>
+                    {{ csrf_field() }}
+                    <span id="success_message" class="error"></span>
+                    <span id="error_message" class="error"></span>
                 </div>
             </div>
 
@@ -103,12 +119,6 @@
                 <div role="tabpanel" class="tab-pane" id="content">
                     {{ old('content', $article->content) }}
                 </div>
-                <script>
-                    var col = '{{ $col }}',
-                        contentLabel = '{{ Lang::get('content::messages.content') }}',
-                        editor_stay_msg = '{{ Lang::get('content::messages.editor_stay_msg') }}',
-                        editor_placeholder = '{{ Lang::get('content::messages.editor_placeholder') }}';
-                </script>
 
                 <div role="tabpanel" class="tab-pane" id="searching">
 

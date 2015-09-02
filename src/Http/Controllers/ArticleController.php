@@ -114,7 +114,8 @@ class ArticleController extends Controller
         //
     }
 
-    public function getSlug($title) {
+    public function getSlug() {
+        $title = $this->request->input('title', '');
         return Article::makeSlug($title);
     }
 }

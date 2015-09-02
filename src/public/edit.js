@@ -8,13 +8,13 @@ $(document).ready( function() {
 
     var editor = new Pen({
         editor: document.getElementById('content'),
-        stayMsg: editor_stay_msg,
-        placeholder: editor_placeholder,
+        stayMsg: editorConfig.stayMsg,
+        placeholder: editorConfig.placeholder,
         debug: true,
-        textarea: '<div class="form-group"><label class="' + col
-        + '-2 control-label" for="content">' + contentLabel
-        + '</label><div class="' + col
-        + '-10"><textarea class="form-control" rows="20" id="content">' + contentLabel
+        textarea: '<div class="form-group"><label class="' + editorConfig.col
+        + '-2 control-label" for="content">' + editorConfig.label
+        + '</label><div class="' + editorConfig.col
+        + '-10"><textarea class="form-control" rows="20" id="content">' + editorConfig.label
         + '</textarea></div></div>',
         list: [
             'blockquote|Blockquote',
@@ -33,24 +33,55 @@ $(document).ready( function() {
 
     $('.cms_content form').on('submit', function () {
 
-        var data = {};
+        var url, method, data = {};
         $(this).find('input, select, textarea').each( function (index, control) {
             if ($(control).is(':checkbox')) {
-                debugger;
                 data[$(control).attr('id')] = $(control).prop('checked');
             } else {
-                data[$(control).attr('id')] = $(control).val();
+                if ($(control).attr('name') === '_token') {
+                    data._token = $(control).val();
+                } else {
+                    data[$(control).attr('id')] = $(control).val();
+                }
             }
-        });
-        $(this).find('input[type="checkbox"]').each( function (index, control) {
-            data[$(control).attr('id')] = $(control).attr('checked');
         });
         editor.cleanContent();
         data.content = editor.toMd();
-        console.log(data);
 
-        var test = $.param(data, false);
+        if (editorConfig.thisUrl.indexOf('create') > -1) {
+            method = 'POST';
+            url = editorConfig.thisUrl.replace('/create', '');
+        } else {
+            method = 'PUT';
+            url = editorConfig.thisUrl.replace('/edit', '');
+        }
+
+        $.ajax({
+            type: method,
+            url: url,
+            data: data
+        })
+            .done(function (data, textStatus, jqXHR) {
+                $('#success_message').text(editorConfig.contentSaved);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                $('#error_message').text(errorThrown);
+            });
+
         return false;
+
+    });
+
+    $('#title').keyup(function (event) {
+
+        var title = $('#title').val();
+        $.get(editorConfig.urlBase + '/' + editorConfig.path + '/article/slug',
+            {title: title},
+            function (data) {
+                $('#slug').text(data);
+            },
+            'text'
+        );
 
     });
 

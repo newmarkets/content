@@ -69,4 +69,6 @@ return [
 
     // other stuff
     'unknown' => 'unknown', // fills in for null content like missing author name
+    'content_saved' => 'Article saved', // displayed after an article has been saved in the editor
+
 ];
