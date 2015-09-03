@@ -33,18 +33,21 @@ $(document).ready( function() {
 
     $('.cms_content form').on('submit', function () {
 
-        var url, method, data = {};
+        var url, method, index, data = {};
         $(this).find('input, select, textarea').each( function (index, control) {
+
+            // _token field only has a name, no id
+            index = $(control).attr('name') || $(control).attr('id');
+
             if ($(control).is(':checkbox')) {
-                data[$(control).attr('id')] = $(control).prop('checked');
+                data[index] = $(control).prop('checked');
             } else {
-                if ($(control).attr('name') === '_token') {
-                    data._token = $(control).val();
-                } else {
-                    data[$(control).attr('id')] = $(control).val();
-                }
+                data[index] = $(control).val();
             }
+
         });
+
+        // get the editor content as Markdown
         editor.cleanContent();
         data.content = editor.toMd();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace NewMarket\Content\Http\Requests;
+namespace NewMarket\Content\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

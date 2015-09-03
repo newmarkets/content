@@ -1,8 +1,10 @@
 <?php
 
-namespace NewMarket\Content\Http\Requests;
+namespace NewMarket\Content\Requests;
 
-use NewMarket\Content\Http\Requests\Request;
+use NewMarket\Content\Requests\Request;
+use NewMarket\Content\Facades\Article;
+use NewMarket\Content\Facades\Category;
 
 class ArticleRequest extends Request
 {
@@ -24,10 +26,14 @@ class ArticleRequest extends Request
     {
         $this->getCategory();
         if ($this->category) {
+
             $this->getArticle();
             if ($this->article) {
+                // only found if editing
                 return true;
             }
+
+            return true;
         }
         return false;
     }
@@ -42,19 +48,19 @@ class ArticleRequest extends Request
         return [
             'id' => 'numeric',
             'title' => 'required|string|unique:article,id,active,1,deleted_at:NULL|max:255',
-            'slug' => 'alpha_dash|unique:article,id,active,1,deleted_at:NULL|max:255', // is alpha_num compatible with localization?
+            'slug' => 'alpha_dash|unique:article,id,active,1,deleted_at:NULL|max:255', // is alpha_dash compatible with localization?
             'subtitle' => 'string|max:255',
             'author' => 'string|max:255',
             'source_name' => 'string|max:255',
             'source_url' => 'url',
             'description' => 'string|max:1000',
-            'content' => 'string',
+            'content' => 'required|string',
             'meta_title' => 'string|max:255',
             'meta_keywords' => 'string|max:255',
             'meta_description' => 'string|max:1000',
             'featured' => 'boolean',
             'active' => 'boolean',
-            'filename' => 'required_if:filename_description|string|max:255',
+            'filename' => 'required_with:filename_description|string|max:255',
             'filename_description' => 'string|max:255',
             'category_id' => 'required|numeric|exists:category,id,active,1,deleted_at,NULL',
             'live_at' => 'date',
@@ -66,7 +72,7 @@ class ArticleRequest extends Request
     {
 
         $path = $this->segment(1);
-        $this->category = Category::findCategory($path);
+        $this->category = Category::findAdminCategory($path);
 
     }
 
@@ -74,8 +80,10 @@ class ArticleRequest extends Request
     {
 
         if ($this->category) {
-            $art = $this->route('article');
-            $this->article = Article::findArticle($this->category->id, $art);
+            $art = $this->route('id');
+            if (!is_null($art)) {
+                $this->article = Article::findArticle($this->category->id, $art);
+            }
         }
 
     }

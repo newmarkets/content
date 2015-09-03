@@ -159,6 +159,10 @@ class ContentServiceProvider extends ServiceProvider
 
     protected function extendBlade() {
 
+        \Blade::directive('checked', function($expression) {
+            return "<?php echo value($expression) ? 'checked' : ''; ?>";
+        });
+
         \Blade::directive('shortdate', function($expression) {
             if (is_null(with($expression))) {
                 return '';

@@ -20,22 +20,22 @@
 
         <div class="row cms cms_byline">
             <p class="cms_author">
-                <span class="sr-only">Author: </span>
+                <span class="sr-only">{{ Lang::get('content::messages.author') }}</span>
                 {{ $article->author }}
             </p>
             <p class="cms_date">
-                <span class="sr-only">Created: </span>
+                <span class="sr-only">{{ Lang::get('content::messages.created') }}</span>
                 @shortdate($article->created_at)
             </p>
             @if (strlen($article->source_name))
                 <p class="cms_source">
-                    <span class="sr-only">Original source: </span>
+                    <span class="sr-only">{{ Lang::get('content::messages.sourcename') }}</span>
                     {{ $article->source_name }}
                 </p>
             @endif
             @if (strlen($article->source_url))
                 <p class="cms_source_link">
-                    <span class="sr-only">Link to source: </span>
+                    <span class="sr-only">{{ Lang::get('content::messages.sourceurl') }}</span>
                     <a href="{{ $article->source_url }}">{{ $article->source_url }}</a>
                 </p>
             @endif
@@ -43,7 +43,7 @@
 
         @if (count($tags))
             <div class="row cms cms_tags">
-                <span class="sr-only">This article has been tagged for the following subjects.</span>
+                <span class="sr-only">{{ Lang::get('content::messages.tagged_with') }}</span>
                 @foreach($tags as $tag)
                     <button type="button" class="btn btn-info btn-xs">{{ $tag }}</button>
                 @endforeach

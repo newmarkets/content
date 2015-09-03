@@ -1,8 +1,8 @@
 <?php
 
-namespace NewMarket\Content\Http\Requests;
+namespace NewMarket\Content\Requests;
 
-use NewMarket\Content\Http\Requests\Request;
+use NewMarket\Content\Requests\Request;
 
 class CategoryRequest extends Request
 {

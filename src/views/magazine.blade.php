@@ -22,6 +22,14 @@
                 <p class="cms cms_description">{{ $category->description }}</p>
             @endif
         </div>
+        @if (Auth::check())
+            <div class="cms cms_controls">
+                <a id="addnew" class="btn btn-default pull-right"
+                   href="{{ Config::get('app.url') . '/' . $category->path . '/article/create' }}">
+                    <span class="glyphicon glyphicon-plus" title="{{ Lang::get('content::messages.add_article') }}"></span>
+                </a>
+            </div>
+        @endif
 
         <?php $col = Config::get('content.col') ?>
         @foreach ($articles as $article)
@@ -41,22 +49,22 @@
             <div class="row cms cms_byline">
                 <div class="{{ $col }}-12 cms_detail">
                     <p class="cms_author">
-                        <span class="sr-only">Author: </span>
+                        <span class="sr-only">{{ Lang::get('content::messages.author') }}</span>
                         {{ $article->author }}
                     </p>
                     <p class="cms_date">
-                        <span class="sr-only">Created: </span>
+                        <span class="sr-only">{{ Lang::get('content::messages.created') }}</span>
                         @shortdate($article->created_at)
                     </p>
                     @if (strlen($article->source_name))
                         <p class="cms_source">
-                            <span class="sr-only">Original source: </span>
+                            <span class="sr-only">{{ Lang::get('content::messages.sourcename') }}</span>
                             {{ $article->source_name }}
                         </p>
                     @endif
                     @if (strlen($article->source_url))
                         <p class="cms_source_link">
-                            <span class="sr-only">Link to source: </span>
+                            <span class="sr-only">{{ Lang::get('content::messages.sourceurl') }}</span>
                             <a href="{{ $article->source_url }}">{{ $article->source_url }}</a>
                         </p>
                     @endif

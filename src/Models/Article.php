@@ -60,10 +60,12 @@ class Article extends Model
      */
     protected $dates = ['live_at', 'down_at'];
 
-
-    public function howdy() {
-        return 'howdy';
-    }
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     public static function findPublicArticle($category_id, $slug) {
 
@@ -73,6 +75,14 @@ class Article extends Model
             ->whereNull('deleted_at')
             ->whereRaw('(live_at <= now() or live_at is null)')
             ->whereRaw('(down_at >= now() or down_at is null)')
+            ->first();
+
+    }
+
+    public static function findAdminArticle($category_id, $id) {
+
+        return self::where('category_id', $category_id)
+            ->where('id', $id)
             ->first();
 
     }

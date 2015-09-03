@@ -42,6 +42,13 @@ class Category extends Model
      */
     public $timestamps = true;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     public static function getId($name) {
 
         return self::where('path', $name)->value('id');
@@ -63,6 +70,14 @@ class Category extends Model
         return self::where('active', true)
             ->whereNull('deleted_at')
             ->where('path', $path)
+            ->first();
+
+    }
+
+    public static function findAdminCategory($path) {
+
+        return self::where('path', $path)
+            ->orderBy('active', 'desc')
             ->first();
 
     }

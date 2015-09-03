@@ -89,6 +89,7 @@
         'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule',
         'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink', 'insertimage'
       ],
+      titles: {},
       cleanAttrs: ['id', 'class', 'style', 'name'],
       cleanTags: ['script']
     };
@@ -147,12 +148,10 @@
     ctx._toolbar = ctx.config.toolbar;
     if (!ctx._toolbar) {
       var toolList = ctx.config.list;
-      utils.forEach(toolList, function (listname) {
-        var parts = listname.split('|'),
-            name = parts[0] || listname,
-            tooltip = parts[1] || '';
+      utils.forEach(toolList, function (name) {
         var klass = 'pen-icon icon-' + name;
-        icons += '<i class="' + klass + '" data-action="' + name + '" title="' + tooltip + '"></i>';
+        var title = ctx.config.titles[name] || '';
+        icons += '<i class="' + klass + '" data-action="' + name + '" title="' + title + '"></i>';
       }, true);
       if (toolList.indexOf('createlink') >= 0 || toolList.indexOf('createlink') >= 0)
         icons += inputStr;

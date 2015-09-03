@@ -213,7 +213,8 @@
                         <div class="{{ $col }}-offset-2 {{ $col }}-10">
                             <div class="checkbox">
                                 <label class="control-label">
-                                    <input id="active" type="checkbox"> {{ Lang::get('content::messages.active') }}
+                                    <input id="active" type="checkbox" @checked(old('active', $article->active))>
+                                    {{ Lang::get('content::messages.active') }}
                                 </label>
                             </div>
                         </div>
@@ -222,7 +223,8 @@
                         <div class="{{ $col }}-offset-2 {{ $col }}-10">
                             <div class="checkbox">
                                 <label class="control-label">
-                                    <input id="featured" type="checkbox"> {{ Lang::get('content::messages.featured') }}
+                                    <input id="featured" type="checkbox" @checked(old('featured', $article->featured))>
+                                    {{ Lang::get('content::messages.featured') }}
                                 </label>
                             </div>
                         </div>
