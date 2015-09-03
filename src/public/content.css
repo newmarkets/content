@@ -53,7 +53,14 @@ div.cms_magazine .cms_text {
 .cms_content .glyphicon.neutral {
     color: #333;
 }
-.cms_content form .divider {
+.cms_controls {
+    position: relative;
+    top: -100px;
+}
+.cms_content .cms_controls {
+    top: -56px;
+}
+.cms_content_editor form .divider {
     color: #dddddd;
     background-color: #555;
     border-radius: 4px;
@@ -62,11 +69,18 @@ div.cms_magazine .cms_text {
     margin-bottom: 5px;
     padding: 5px 10px;
 }
-.cms_content form .tab-pane {
+.cms_content_editor form .tab-pane {
     min-height: 300px;
 }
-.cms_content form #content {
+.cms_content_editor form #content {
     margin: 30px 15px;
+}
+.cms_content_editor ul.nav-tabs .has-error a {
+    color:#a94442;
+    background-color: #f2dede;
+    background-image: linear-gradient(to bottom, #f2dede 0px, #e7c3c3 100%);
+    background-repeat: repeat-x;
+    border-color: #dca7a7;
 }
 /* firefox-specific hack for responsive tables */
 @-moz-document url-prefix() {

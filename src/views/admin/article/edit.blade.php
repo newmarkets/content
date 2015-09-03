@@ -27,7 +27,7 @@
         editorConfig.thisUrl = editorConfig.urlBase + '{{ $_SERVER['REQUEST_URI'] }}';
     </script>
 
-    <div class="container cms cms_content">
+    <div class="container cms cms_content_editor">
         <h1>{{ $action }} {{ Lang::choice('content::messages.article', 1) }}</h1>
 
         <form class="form-horizontal">
