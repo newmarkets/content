@@ -61,15 +61,22 @@ return [
     // These are prompts
     'add_article' => 'New article',
     'add_category' => 'New category',
+    'edit_article' => 'Edit this article',
+    'edit_category' => 'Edit this category',
+    'list_articles' => 'List articles',
+    'list_categories' => 'List categories',
+    'delete_article' => 'Delete this article',
     'delete_confirm' => 'Delete this article?',
-    'delete_category' => 'Delete this category?',
+    'delete_category' => 'Delete this category',
+    'delete_category_confirm' => 'Delete this category?',
     'click_to_edit' => 'Click to edit',
     'editor_stay_msg' => 'If you leave the page without saving, your changes will be lost. Leave now?',
     'editor_placeholder' => 'Begin editing right here. Just type!\n\nSelect some text to see the toolbar.',
+    'change_warning' => 'Changing this information will break any links to this page.',
 
     // other stuff
     'unknown' => 'unknown', // fills in for null content like missing author name
-    'content_saved' => 'Article saved', // displayed after an article has been saved in the editor
+    'content_saved' => 'Article saved. See it <\a href="view:">here<\/a>.', // displayed after an article has been saved in the editor
     'tagged_with' => 'This article has been tagged for the following subjects',
 
 ];

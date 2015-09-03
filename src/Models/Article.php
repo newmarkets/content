@@ -79,10 +79,10 @@ class Article extends Model
 
     }
 
-    public static function findAdminArticle($category_id, $id) {
+    public static function findAdminArticle($category_id, $slug) {
 
         return self::where('category_id', $category_id)
-            ->where('id', $id)
+            ->where('slug', $slug)
             ->first();
 
     }

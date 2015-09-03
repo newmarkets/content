@@ -2,6 +2,10 @@
 
 namespace NewMarket\Content\Requests;
 
+use Illuminate\Http\Request as LaravelRequest;
+//use Illuminate\Support\Facades\Route;
+//use Illuminate\Routing\Route;
+//use Illuminate\Routing\Router;
 use NewMarket\Content\Requests\Request;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
@@ -43,12 +47,13 @@ class ArticleRequest extends Request
      *
      * @return array
      */
-    public function rules()
+    public function rules(LaravelRequest $request)
     {
+        $id = $request->segment(3) ?: 'NULL';
         return [
             'id' => 'numeric',
-            'title' => 'required|string|unique:article,id,active,1,deleted_at:NULL|max:255',
-            'slug' => 'alpha_dash|unique:article,id,active,1,deleted_at:NULL|max:255', // is alpha_dash compatible with localization?
+            'title' => "required|string|unique:article,title,$id,id,active,1,deleted_at,NULL|max:255",
+            'slug' => "required|alpha_dash|unique:article,slug,$id,id,active,1,deleted_at,NULL|max:255", // is alpha_dash compatible with localization?
             'subtitle' => 'string|max:255',
             'author' => 'string|max:255',
             'source_name' => 'string|max:255',

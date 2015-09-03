@@ -3,6 +3,7 @@
 namespace NewMarket\Content\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
@@ -48,6 +49,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        $action = Lang::get('content::messages.add');
         $categories = Category::getPublicCategories();
         $this->getCategory();
         $category = $this->category;
@@ -69,7 +71,8 @@ class ArticleController extends Controller
         ]);
 
         if ($category && $article) {
-            return view('newmarkets\content::admin.article.edit', compact('article', 'category', 'categories'));
+            return view('newmarkets\content::admin.article.edit',
+                compact('article', 'category', 'categories', 'action'));
         }
         throw new NotFoundHttpException;
 
@@ -85,20 +88,19 @@ class ArticleController extends Controller
         $this->request = $request;
         $this->getCategory();
 
+        // everything was validated by ArticleRequest, ready to save
         $input = $request->except('_token');
         $article = Article::create($input);
 
-//        if ($request->ajax()) {
-//            if ($article) {
-//                return ['status' => 'success'];
-//            } else {
-//                return $request->
-//            }
-//        }
+        // this should be the url to the article
+        $url = '/' . $this->category->path . '/' . $article->slug;
+
+        if ($request->ajax()) {
+            return ['response' => 'Success', 'next' => $url];
+        }
 
         if ($this->category && $article) {
-            return redirect($this->category->path . '/' . $article->slug)
-                ->with('success', 'Article saved.');
+            return redirect($url)->with('success', 'Article saved.');
         }
         return back()->withInput();
 
@@ -123,13 +125,15 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        $action = Lang::get('content::messages.edit');
         $categories = Category::getPublicCategories();
         $this->getCategory();
         $category = $this->category;
         $article = Article::find($id);
 
         if ($category && $article) {
-            return view('newmarkets\content::admin.article.edit', compact('article', 'category', 'categories'));
+            return view('newmarkets\content::admin.article.edit',
+                compact('article', 'category', 'categories', 'action'));
         }
         throw new NotFoundHttpException;
 
@@ -141,9 +145,26 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(ArticleRequest $request, $id)
     {
-        //
+        $this->request = $request;
+        $this->getCategory();
+
+        // everything was validated by ArticleRequest, ready to save
+        $input = $request->except('_token');
+        $article = Article::updateOrCreate(['id' => $id], $input);
+
+        // this should be the url to the article
+        $url = '/' . $this->category->path . '/' . $article->slug;
+
+        if ($request->ajax()) {
+            return ['response' => 'Success', 'next' => $url];
+        }
+
+        if ($this->category && $article) {
+            return redirect($url)->with('success', 'Article saved.');
+        }
+        return back()->withInput();
     }
 
     /**

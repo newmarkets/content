@@ -24,9 +24,13 @@
         </div>
         @if (Auth::check())
             <div class="cms cms_controls">
-                <a id="addnew" class="btn btn-default pull-right"
+                <a id="addnew-command" class="btn btn-default pull-right"
                    href="{{ Config::get('app.url') . '/' . $category->path . '/article/create' }}">
                     <span class="glyphicon glyphicon-plus" title="{{ Lang::get('content::messages.add_article') }}"></span>
+                </a>
+                <a id="list-command" class="btn btn-default pull-right"
+                   href="{{ Config::get('app.url') . '/' . $category->path . '/article' }}">
+                    <span class="glyphicon glyphicon-list" title="{{ Lang::get('content::messages.list_articles') }}"></span>
                 </a>
             </div>
         @endif

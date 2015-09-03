@@ -1,8 +1,8 @@
 NewMarket Content Management
 ======
 
-This project is a work-in-progress. Check back in a week or contact me
-if you want to help.
+_This project is a work-in-progress. Check back in a week or contact me
+if you want to help._
 
 This package is a Content Management System for Laravel 5.1. It could
 be used for a simple blog. Articles within the system are divided into
@@ -10,9 +10,17 @@ categories--as many as you like. Security is based on the categories;
 users may have access to read, create, edit, delete, publish and unpublish
 within each category separately from other categories.
 
-Content in the system can use Markdown syntax for formatting. We are using
+On your site, each category resides under a unique path. You could have a
+category named "Geoffrey's Wild Tales" with a path of "pilgrimages." The URL
+to this category would look like http://domain.com/pilgrimages and articles
+would look like http://domain.com/pilgrimages/a-worthy-man.
+
+Content in the system uses Markdown syntax for formatting. We are using
 [Pen](https://github.com/sofish/pen) as an editor with its optional markdown
 export option.
+
+This project makes an honest effort to support localization and assitive
+technologies. Feel free to point out areas for improvement.
 
 Requirements
 ------------

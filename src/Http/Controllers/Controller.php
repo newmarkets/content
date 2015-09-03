@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
 
@@ -47,7 +48,11 @@ abstract class Controller extends BaseController
 
         if ($this->category) {
             $art = $this->request->route('article');
-            $this->article = Article::findPublicArticle($this->category->id, $art);
+            if (Auth::check()) {
+                $this->article = Article::findAdminArticle($this->category->id, $art);
+            } else {
+                $this->article = Article::findPublicArticle($this->category->id, $art);
+            }
         }
 
     }

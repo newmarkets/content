@@ -32,14 +32,14 @@
                             <tr>
                                 <td class="cms_icons">
                                     @if ($article->active)
-                                        <span class="cms_active glyphicon glyphicon-plus-sign green"></span>
+                                        <span class="cms_active glyphicon glyphicon-eye-open green"></span>
                                     @else
-                                        <span class="cms_active glyphicon glyphicon-minus-sign red"></span>
+                                        <span class="cms_active glyphicon glyphicon-eye-close red"></span>
                                     @endif
                                     @if ($article->featured)
-                                        <span class="cms_featured glyphicon glyphicon-circle-arrow-up green"></span>
+                                        <span class="cms_featured glyphicon glyphicon-thumbs-up green"></span>
                                     @else
-                                        <span class="cms_featured glyphicon glyphicon-minus-sign neutral"></span>
+                                        <span class="cms_featured glyphicon glyphicon-thumbs-up neutral"></span>
                                     @endif
                                 </td>
                                 <td class="cms_title">

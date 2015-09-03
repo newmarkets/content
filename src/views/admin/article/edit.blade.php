@@ -28,19 +28,43 @@
     </script>
 
     <div class="container cms cms_content">
-        <h1>{{ Lang::get('content::messages.edit') }} {{ Lang::choice('content::messages.article', 1) }}</h1>
+        <h1>{{ $action }} {{ Lang::choice('content::messages.article', 1) }}</h1>
 
         <form class="form-horizontal">
 
             <div class="form-group">
-                <div class="{{ $col }}-12">
+                <div class="{{ $col }}-2">
                     <button type="submit" class="btn btn-primary">{{ Lang::get('content::messages.save') }}</button>
                     <button type="button" class="btn btn-default">{{ Lang::get('content::messages.cancel') }}</button>
                     {{ csrf_field() }}
-                    <span id="success_message" class="error"></span>
-                    <span id="error_message" class="error"></span>
+                </div>
+                <div class="{{ $col }}-10">
+                    <div class="alert alert-success" role="alert" style="display:none;width:80%">
+                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span id="success_message"></span>
+                    </div>
+                    <div class="alert alert-danger" role="alert" style="display:none;width:80%">
+                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span id="error_message"></span>
+                    </div>
                 </div>
             </div>
+            @if (Auth::check())
+                <div class="cms cms_controls">
+                    <a id="delete-command" class="btn btn-default pull-right"
+                       href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/delete' }}">
+                        <span class="glyphicon glyphicon-trash" title="{{ Lang::get('content::messages.delete_article') }}"></span>
+                    </a>
+                    <a id="addnew-command" class="btn btn-default pull-right"
+                       href="{{ Config::get('app.url') . '/' . $category->path . '/article/create' }}">
+                        <span class="glyphicon glyphicon-plus" title="{{ Lang::get('content::messages.add_article') }}"></span>
+                    </a>
+                    <a id="list-command" class="btn btn-default pull-right"
+                       href="{{ Config::get('app.url') . '/' . $category->path . '/article' }}">
+                        <span class="glyphicon glyphicon-list" title="{{ Lang::get('content::messages.list_articles') }}"></span>
+                    </a>
+                </div>
+            @endif
 
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
@@ -48,7 +72,7 @@
                         {{ Lang::get('content::messages.editing_tab') }}
                     </a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" id="cms_content_tab">
                     <a href="#content" aria-controls="content" role="tab" data-toggle="tab">
                         {{ Lang::get('content::messages.content_tab') }}
                     </a>
@@ -83,30 +107,38 @@
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="title">{{ Lang::get('content::messages.title') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="title" placeholder="{{ Lang::get('content::messages.title') }}"
-                                value="{{ old('title', $article->title) }}">
+                            <input type="text" class="form-control" id="title" aria-describedby="title-error"
+                                    placeholder="{{ Lang::get('content::messages.title') }}"
+                                    value="{{ old('title', $article->title) }}">
                         </div>
+                        <span id="title-error" class="sr-only"></span>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="subtitle">{{ Lang::get('content::messages.subtitle') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="subtitle" placeholder="{{ Lang::get('content::messages.subtitle') }}"
+                            <input type="text" class="form-control" id="subtitle" aria-describedby="subtitle-error"
+                                   placeholder="{{ Lang::get('content::messages.subtitle') }}"
                                    value="{{ old('subtitle', $article->subtitle) }}">
                         </div>
+                        <span id="subtitle-error" class="sr-only"></span>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="author">{{ Lang::get('content::messages.author') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="author" placeholder="{{ Lang::get('content::messages.author') }}"
+                            <input type="text" class="form-control" id="author" aria-describedby="author-error"
+                                   placeholder="{{ Lang::get('content::messages.author') }}"
                                    value="{{ old('author', $article->author) }}">
                         </div>
+                        <span id="author-error" class="sr-only"></span>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="description">{{ Lang::get('content::messages.description') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="description" placeholder="{{ Lang::get('content::messages.description') }}"
+                            <input type="text" class="form-control" id="description" aria-describedby="description-error"
+                                   placeholder="{{ Lang::get('content::messages.description') }}"
                                    value="{{ old('description', $article->description) }}">
                         </div>
+                        <span id="description-error" class="sr-only"></span>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="slug">{{ Lang::get('content::messages.slug') }}</label>
@@ -116,9 +148,7 @@
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="content">
-                    {{ old('content', $article->content) }}
-                </div>
+                <div role="tabpanel" class="tab-pane" id="content">{{ old('content', $article->content) }}</div>
 
                 <div role="tabpanel" class="tab-pane" id="searching">
 
@@ -126,21 +156,27 @@
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="meta_title">{{ Lang::get('content::messages.meta_title') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="meta_title" placeholder="{{ Lang::get('content::messages.meta_title') }}"
+                            <input type="text" class="form-control" id="meta_title" aria-describedby="meta_title-error"
+                                   placeholder="{{ Lang::get('content::messages.meta_title') }}"
                                    value="{{ old('meta_title', $article->meta_title) }}">
+                            <span id="meta_title-error" class="sr-only"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="meta_keywords">{{ Lang::get('content::messages.meta_keywords') }}</label>
                         <div class="{{ $col }}-10">
-                            <textarea rows="6" class="form-control" id="meta_keywords">{{ old('meta_keywords', $article->meta_keywords) }}</textarea>
+                            <textarea rows="6" class="form-control" id="meta_keywords"
+                                    aria-describedby="meta_keywords-error">{{ old('meta_keywords', $article->meta_keywords) }}</textarea>
                         </div>
+                        <span id="meta_keywords-error" class="sr-only"></span>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="meta_description">{{ Lang::get('content::messages.meta_description') }}</label>
                         <div class="{{ $col }}-10">
-                            <textarea rows="6" class="form-control" id="meta_description">{{ old('meta_description', $article->meta_description) }}</textarea>
+                            <textarea rows="6" class="form-control" id="meta_description"
+                                    aria-describedby="meta_description-error">{{ old('meta_description', $article->meta_description) }}</textarea>
                         </div>
+                        <span id="meta_description-error" class="sr-only"></span>
                     </div>
                 </div>
 
@@ -150,15 +186,19 @@
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="source_name">{{ Lang::get('content::messages.sourcename') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="source_name" placeholder="{{ Lang::get('content::messages.sourcename') }}"
+                            <input type="text" class="form-control" id="source_name" aria-describedby="source_name-error"
+                                   placeholder="{{ Lang::get('content::messages.sourcename') }}"
                                    value="{{ old('source_name', $article->source_name) }}">
+                            <span id="source_name-error" class="sr-only"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="source_url">{{ Lang::get('content::messages.sourceurl') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="source_url" placeholder="{{ Lang::get('content::messages.sourceurl') }}"
+                            <input type="text" class="form-control" id="source_url" aria-describedby="source_url-error"
+                                   placeholder="{{ Lang::get('content::messages.sourceurl') }}"
                                    value="{{ old('source_url', $article->source_url) }}">
+                            <span id="source_url-error" class="sr-only"></span>
                         </div>
                     </div>
                 </div>
@@ -169,15 +209,19 @@
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="filename">{{ Lang::get('content::messages.filename') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="filename" placeholder="{{ Lang::get('content::messages.filename') }}"
+                            <input type="text" class="form-control" id="filename" aria-describedby="filename-error"
+                                   placeholder="{{ Lang::get('content::messages.filename') }}"
                                    value="{{ old('filename', $article->filename) }}">
+                            <span id="filename-error" class="sr-only"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="filename_description">{{ Lang::get('content::messages.filename_description') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="filename_description" placeholder="{{ Lang::get('content::messages.filename_description') }}"
+                            <input type="text" class="form-control" id="filename_description" aria-describedby="filename_description-error"
+                                   placeholder="{{ Lang::get('content::messages.filename_description') }}"
                                    value="{{ old('filename_description', $article->filename_description) }}">
+                            <span id="filename_description-error" class="sr-only"></span>
                         </div>
                     </div>
                 </div>
@@ -198,23 +242,29 @@
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="live_at">{{ Lang::get('content::messages.live_at') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="live_at" placeholder="{{ Lang::get('content::messages.live_at') }}"
+                            <input type="text" class="form-control" id="live_at" aria-describedby="live_at-error"
+                                   placeholder="{{ Lang::get('content::messages.live_at') }}"
                                    value="{{ old('live_at', $article->live_at) }}">
+                            <span id="live_at-error" class="sr-only"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="{{ $col }}-2 control-label" for="down_at">{{ Lang::get('content::messages.down_at') }}</label>
                         <div class="{{ $col }}-10">
-                            <input type="text" class="form-control" id="down_at" placeholder="{{ Lang::get('content::messages.down_at') }}"
+                            <input type="text" class="form-control" id="down_at" aria-describedby="down_at-error"
+                                   placeholder="{{ Lang::get('content::messages.down_at') }}"
                                    value="{{ old('down_at', $article->down_at) }}">
+                            <span id="down_at-error" class="sr-only"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="{{ $col }}-offset-2 {{ $col }}-10">
                             <div class="checkbox">
                                 <label class="control-label">
-                                    <input id="active" type="checkbox" @checked(old('active', $article->active))>
+                                    <input id="active" type="checkbox" @checked(old('active', $article->active))
+                                            aria-describedby="active-error">
                                     {{ Lang::get('content::messages.active') }}
+                                    <span id="active-error" class="sr-only"></span>
                                 </label>
                             </div>
                         </div>
@@ -223,8 +273,10 @@
                         <div class="{{ $col }}-offset-2 {{ $col }}-10">
                             <div class="checkbox">
                                 <label class="control-label">
-                                    <input id="featured" type="checkbox" @checked(old('featured', $article->featured))>
+                                    <input id="featured" type="checkbox" @checked(old('featured', $article->featured))
+                                            aria-describedby="featured-error">
                                     {{ Lang::get('content::messages.featured') }}
+                                    <span id="featured-error" class="sr-only"></span>
                                 </label>
                             </div>
                         </div>
