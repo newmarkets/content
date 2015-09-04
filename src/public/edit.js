@@ -45,7 +45,7 @@ $(document).ready( function() {
 
     $('i.pen-icon').tooltip();
 
-    $('.cms_content form').on('submit', function () {
+    $('.cms_content_editor form').on('submit', function () {
 
         var url, method, id, article_data, self = this, messages = '';
 
@@ -115,9 +115,7 @@ $(document).ready( function() {
 
         }
 
-        var setFieldMessages = function (jqXHR) {+6+
-
-        +++9-]77
+        var setFieldMessages = function (jqXHR) {
 
             $(self).find('input, select, textarea').each( function (index, control) {
 
@@ -161,6 +159,7 @@ $(document).ready( function() {
             data: article_data
         })
             .done(function (data, textStatus, jqXHR) {
+                setFieldMessages({responseJSON: {}});
                 setSuccessMessage(data);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -178,7 +177,7 @@ $(document).ready( function() {
 
     });
 
-    $('.cms_content .alert button.close').on('click', function () {
+    $('.cms_content_editor .alert button.close').on('click', function () {
         $(this).parents('.alert').hide();
     });
 
