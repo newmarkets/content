@@ -47,7 +47,7 @@
                                         {{ $article->title }}
                                     </a>
                                 </td>
-                                <td>{{  Lang::get('content::messages.unknown') }}</td>
+                                <td>{{ $article->author }}</td>
                                 <td>@shortdate($article->created_at)</td>
                                 <td>@shortdate($article->updated_at)</td>
                                 <td>@shortdate($article->live_at)</td>

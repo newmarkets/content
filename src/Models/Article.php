@@ -1,8 +1,8 @@
 <?php namespace NewMarket\Content\Models;
 
+use NewMarket\Content\Models\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cocur\Slugify\Slugify;
 use League\CommonMark\CommonMarkConverter;
@@ -58,7 +58,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $dates = ['live_at', 'down_at'];
+    protected $dates = ['deleted_at', 'live_at', 'down_at'];
 
     /**
      * The attributes that aren't mass assignable.

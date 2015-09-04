@@ -27,17 +27,17 @@
         @foreach ($articles as $article)
             <div class="row cms cms_article_detail">
                 <div class="{{ $col }}-6 cms_title">
-                    <span class="sr-only">Title: </span>
+                    <span class="sr-only">{{ Lang::get('content::messages.title') }}</span>
                     <a href="{{ Config::get('app.url') . '/' . $category->path . '/' . $article->slug }}">
                         {{ $article->title }}
                     </a>
                 </div>
                 <div class="{{ $col }}-3 cms_author">
-                    <span class="sr-only">Author: </span>
+                    <span class="sr-only">{{ Lang::get('content::messages.author') }}</span>
                     {{ $article->author or '' }}
                 </div>
                 <div class="{{ $col }}-3 cms_date">
-                    <span class="sr-only">Created: </span>
+                    <span class="sr-only">{{ Lang::get('content::messages.created_at') }}</span>
                     @shortdate($article->created_at)
                 </div>
             </div>

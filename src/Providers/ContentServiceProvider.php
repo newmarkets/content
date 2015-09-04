@@ -164,10 +164,7 @@ class ContentServiceProvider extends ServiceProvider
         });
 
         \Blade::directive('shortdate', function($expression) {
-            if (is_null(with($expression))) {
-                return '';
-            }
-            return "<?php echo date('Y-M-d', strtotime($expression)); ?>";
+            return "<?php echo substr(value($expression), 0, 10); ?>";
         });
 
     }
