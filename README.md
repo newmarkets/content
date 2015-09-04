@@ -37,29 +37,50 @@ Optional
 
  * [Slugify](https://github.com/curco/slugify) may produce better results for non-English languages
 
-Installing with Composer
+Installing Composer
 -----
-Use the [basic usage guide](http://getcomposer.org/doc/01-basic-usage.md),
-or follow the steps below:
-
-Setup your `composer.json` file at the root of your project.
-
-    {
-        "require": {
-            "newmarkets/content": "*"
-        }
-    }
-
-Install Composer.
+See the [basic usage guide](http://getcomposer.org/doc/01-basic-usage.md) or follow the steps below. This command
+will download `composer.phar` to the current directory.
 
     curl -s http://getcomposer.org/installer | php
 
-Install Dependencies (will download NewMarket Content Management).
+Install for existing projects
+-----
+
+For an existing project, add `newmarkets/content` to the `require` section of your `composer.json` file.
+
+    "require": {
+        "newmarkets/content": "*"
+    }
+
+Install dependencies with Composer. This will download and install NewMarket Content Management and
+other packages it requires (and possibly other packages that they require, etc).
 
     php composer.phar install
 
-Add the service provider to your Laravel configuration in config/app.php
-(there will be a big array of providers--insert this one into the list).
+Alternate install for new projects
+-----
+
+If this is a new project, first run the following command. Composer will install Laravel, then invoke Laravel to
+build a skeleton application in a new directory named `newproject` (or whatever name you provide).
+
+    php composer.phar create-project laravel/laravel newproject
+
+Edit the `composer.json` file and add an entry for `minimum-stability`. You may change this setting later.
+This is temporarily necessary because `newmarkets/content` is not yet in a released state.
+
+    "minimum-stability": "dev"
+
+Now run the following from the command line. This will install the content system and add `newmarkets/content`
+to the `composer.json` file.
+
+    php composer.phar require newmarkets/content
+
+Completing the installation
+-----
+
+Add the service provider to your Laravel configuration in `config/app.php`. There will be a big array of providers.
+Insert this one anywhere in the list (recommedation: put it at the bottom).
 
     return [
         'providers' => [
