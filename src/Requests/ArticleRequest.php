@@ -3,9 +3,6 @@
 namespace NewMarket\Content\Requests;
 
 use Illuminate\Http\Request as LaravelRequest;
-//use Illuminate\Support\Facades\Route;
-//use Illuminate\Routing\Route;
-//use Illuminate\Routing\Router;
 use NewMarket\Content\Requests\Request;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
