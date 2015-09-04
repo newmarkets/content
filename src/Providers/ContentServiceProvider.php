@@ -14,10 +14,6 @@ class ContentServiceProvider extends ServiceProvider
 {
     protected $defer = false;
 
-//    public function __construct() {
-//        die('scum');
-//    }
-
     public static function compiles()
     {
         // @todo: fill out the list of compiled classes
@@ -69,7 +65,6 @@ class ContentServiceProvider extends ServiceProvider
         $this->loadFrom($dir);
         $this->publishFrom($dir);
         $this->setRoutes();
-//        $this->registerViewComposer();
         $this->extendBlade();
 
     }
@@ -147,13 +142,6 @@ class ContentServiceProvider extends ServiceProvider
             $router->resource('category', 'CategoryController');
 
         });
-
-    }
-
-    protected function registerViewComposer() {
-
-        $extends = Config::get('content.extends');
-        View::composer($extends, 'NewMarket\\Content\\Http\\Composers\\MasterComposer');
 
     }
 
