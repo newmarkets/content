@@ -9,6 +9,7 @@
     <script src="/vendor/newmarkets/content/vendor/pen/src/pen.js"></script>
     <script src="/vendor/newmarkets/content/vendor/pen/src/markdown.js"></script>
     <script src="/vendor/newmarkets/content/edit.js"></script>
+    <script src="/vendor/newmarkets/content/delete.js"></script>
 @endsection
 
 @section(Config::get('content.yields'))
@@ -51,18 +52,11 @@
             </div>
             @if (Auth::check())
                 <div class="cms cms_controls">
-                    <a id="delete-command" class="btn btn-default pull-right"
-                       href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/delete' }}">
-                        <span class="glyphicon glyphicon-trash" title="{{ Lang::get('content::messages.delete_article') }}"></span>
-                    </a>
-                    <a id="addnew-command" class="btn btn-default pull-right"
-                       href="{{ Config::get('app.url') . '/' . $category->path . '/article/create' }}">
-                        <span class="glyphicon glyphicon-plus" title="{{ Lang::get('content::messages.add_article') }}"></span>
-                    </a>
-                    <a id="list-command" class="btn btn-default pull-right"
-                       href="{{ Config::get('app.url') . '/' . $category->path . '/article' }}">
-                        <span class="glyphicon glyphicon-list" title="{{ Lang::get('content::messages.list_articles') }}"></span>
-                    </a>
+                    @if ($control == 'edit')
+                        @include('newmarkets\content::admin.article.delete_button')
+                        @include('newmarkets\content::admin.article.create_button')
+                    @endif
+                    @include('newmarkets\content::admin.article.list_button')
                 </div>
             @endif
 
@@ -287,6 +281,7 @@
         </form>
 
     </div>
+    @include('newmarkets\content::admin.article.delete_modal')
 
 @endsection
 

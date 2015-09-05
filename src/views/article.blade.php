@@ -5,6 +5,9 @@
 @endsection
 
 @section(Config::get('content.script'))
+    @if (Auth::check())
+        <script src="/vendor/newmarkets/content/delete.js"></script>
+    @endif
 @endsection
 
 @section(Config::get('content.yields'))
@@ -19,22 +22,10 @@
         </div>
         @if (Auth::check())
             <div class="cms cms_controls">
-                <a id="delete-command" class="btn btn-default pull-right"
-                   href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/delete' }}">
-                    <span class="glyphicon glyphicon-trash" title="{{ Lang::get('content::messages.delete_article') }}"></span>
-                </a>
-                <a id="edit-command" class="btn btn-default pull-right"
-                   href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/edit' }}">
-                    <span class="glyphicon glyphicon-pencil" title="{{ Lang::get('content::messages.edit_article') }}"></span>
-                </a>
-                <a id="addnew-command" class="btn btn-default pull-right"
-                   href="{{ Config::get('app.url') . '/' . $category->path . '/article/create' }}">
-                    <span class="glyphicon glyphicon-plus" title="{{ Lang::get('content::messages.add_article') }}"></span>
-                </a>
-                <a id="list-command" class="btn btn-default pull-right"
-                   href="{{ Config::get('app.url') . '/' . $category->path . '/article' }}">
-                    <span class="glyphicon glyphicon-list" title="{{ Lang::get('content::messages.list_articles') }}"></span>
-                </a>
+                @include('newmarkets\content::admin.article.delete_button')
+                @include('newmarkets\content::admin.article.edit_button')
+                @include('newmarkets\content::admin.article.create_button')
+                @include('newmarkets\content::admin.article.list_button')
             </div>
         @endif
 
@@ -75,6 +66,7 @@
         </div>
 
     </div>
+    @include('newmarkets\content::admin.article.delete_modal')
 
 @endsection
 

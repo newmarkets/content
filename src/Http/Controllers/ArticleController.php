@@ -49,6 +49,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        $control = 'create';
         $action = Lang::get('content::messages.add');
         $categories = Category::getPublicCategories();
         $this->getCategory();
@@ -59,6 +60,8 @@ class ArticleController extends Controller
         $user = \Auth::user()->getAttributes();
         if (isset($user['firstname']) && isset($user['lastname'])) {
             $author = $user['firstname'] . ' ' . $user['lastname'];
+        } else if (isset($user['name'])) {
+            $author = $user['name'];
         } else if (isset($user['username'])) {
             $author = $user['username'];
         }
@@ -72,7 +75,7 @@ class ArticleController extends Controller
 
         if ($category && $article) {
             return view('newmarkets\content::admin.article.edit',
-                compact('article', 'category', 'categories', 'action'));
+                compact('article', 'category', 'categories', 'action', 'control'));
         }
         throw new NotFoundHttpException;
 
@@ -114,7 +117,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        throw new NotFoundHttpException;
     }
 
     /**
@@ -125,6 +128,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        $control = 'edit';
         $action = Lang::get('content::messages.edit');
         $categories = Category::getPublicCategories();
         $this->getCategory();
@@ -133,7 +137,7 @@ class ArticleController extends Controller
 
         if ($category && $article) {
             return view('newmarkets\content::admin.article.edit',
-                compact('article', 'category', 'categories', 'action'));
+                compact('article', 'category', 'categories', 'action', 'control'));
         }
         throw new NotFoundHttpException;
 
@@ -175,7 +179,20 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->getCategory();
+
+        if ($this->category) {
+
+            if (Article::destroy([$id])) {
+
+                if ($this->request->ajax()) {
+                    return ['response' => 'Success'];
+                }
+                return redirectTo($this->category->path);
+            }
+        }
+        throw new NotFoundHttpException;
+
     }
 
     public function getSlug() {
