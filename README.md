@@ -29,8 +29,8 @@ Requirements
  * [Laravel 5.1+](http://laravel.com)
  * [jQuery](http://jquery.com) JavaScript library
  * [Bootstrap](http://getbootstrap.com) for layout
- * [Pen](https://github.com/sofish/pen) for editing article content
- * [CommonMark](https://github.com/league/commonmark) for translation of markdown content to HTML
+ * [Pen](http://sofish.github.io/pen) for editing article content
+ * [CommonMark](https://github.com/thephpleague/commonmark) for translation of markdown content to HTML
  * [Composer](http://getcomposer.org) for all package management and autoloading
 
 Optional
