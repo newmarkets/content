@@ -30,7 +30,7 @@ Requirements
  * [jQuery](http://jquery.com) JavaScript library
  * [Bootstrap](http://getbootstrap.com) for layout
  * [Pen](http://sofish.github.io/pen) for editing article content
- * [CommonMark](https://github.com/thephpleague/commonmark) for translation of markdown content to HTML
+ * [CommonMark](http://commonmark.thephpleague.com) for translation of markdown content to HTML
  * [Composer](http://getcomposer.org) for all package management and autoloading
 
 Optional
