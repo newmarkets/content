@@ -5,9 +5,8 @@ namespace NewMarket\Content\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
-use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
-use NewMarket\Content\Requests\ArticleRequest;
+use NewMarket\Content\Requests\CategoryRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArticleController extends Controller
@@ -98,11 +97,10 @@ class ArticleController extends Controller
         // this should be the url to the article
         $url = '/' . $this->category->path . '/' . $article->slug;
 
-        if ($request->ajax()) {
-            return ['response' => 'Success', 'next' => $url];
-        }
-
         if ($this->category && $article) {
+            if ($request->ajax()) {
+                return ['response' => 'Success', 'next' => $url];
+            }
             return redirect($url)->with('success', 'Article saved.');
         }
         return back()->withInput();

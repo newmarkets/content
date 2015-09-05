@@ -65,6 +65,14 @@ class Category extends Model
 
     }
 
+    public static function getAdminCategories() {
+
+        return self::orderBy('sortorder')
+            ->get()
+            ->all();
+
+    }
+
     public static function findPublicCategory($path) {
 
         return self::where('active', true)

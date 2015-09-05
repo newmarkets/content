@@ -51,7 +51,7 @@ div.cms_magazine .cms_text {
     color: red;
 }
 .cms_content .glyphicon.neutral {
-    color: #333;
+    color: rgba(50,50,50,.3);
 }
 .cms_controls {
     position: relative;

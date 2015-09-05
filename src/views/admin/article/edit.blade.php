@@ -36,7 +36,7 @@
             <div class="form-group">
                 <div class="{{ $col }}-2">
                     <button type="submit" class="btn btn-primary">{{ Lang::get('content::messages.save') }}</button>
-                    <button type="button" class="btn btn-default">{{ Lang::get('content::messages.cancel') }}</button>
+                    <button type="button" class="btn btn-default cancel">{{ Lang::get('content::messages.cancel') }}</button>
                     {{ csrf_field() }}
                 </div>
                 <div class="{{ $col }}-10">

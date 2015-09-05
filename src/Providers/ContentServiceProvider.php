@@ -133,7 +133,7 @@ class ContentServiceProvider extends ServiceProvider
                 // These define the public routes for this category.
                 $router->get("$path/index", 'ContentController@showCategory');
                 $router->get("$path/{article}", 'ContentController@showArticle');
-                $router->get($path, 'ContentController@showCategories');
+                $router->get($path, 'ContentController@showCategory');
 
             }
 
