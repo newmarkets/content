@@ -100,7 +100,7 @@ class ArticleController extends Controller
 
         if ($this->category && $article) {
             if ($request->ajax()) {
-                return ['response' => 'Success', 'next' => $url];
+                return ['response' => 'success', 'next' => $url];
             }
             return redirect($url)->with('success', 'Article saved.');
         }
@@ -161,7 +161,7 @@ class ArticleController extends Controller
         $url = '/' . $this->category->path . '/' . $article->slug;
 
         if ($request->ajax()) {
-            return ['response' => 'Success', 'next' => $url];
+            return ['response' => 'success', 'next' => $url];
         }
 
         if ($this->category && $article) {
@@ -185,7 +185,7 @@ class ArticleController extends Controller
             if (Article::destroy([$id])) {
 
                 if ($this->request->ajax()) {
-                    return ['response' => 'Success'];
+                    return ['response' => 'success'];
                 }
                 return redirectTo($this->category->path);
             }
