@@ -29,7 +29,7 @@ class CategoryRequest extends Request
         return [
             'id' => 'numeric',
             'sortorder' => 'numeric',
-            'path' => "required|string|unique:category,path,$id,id,active,1,deleted_at,NULL|max:255",
+            'path' => "required|string|unique:category,path,$id,id|max:255",
             'title' => "required|string|unique:category,title,$id,id,active,1,deleted_at,NULL|max:255",
             'subtitle' => 'string|max:255',
             'description' => 'string|max:1000',
