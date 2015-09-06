@@ -1,5 +1,6 @@
 <?php namespace NewMarket\Content\Providers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -119,7 +120,13 @@ class ContentServiceProvider extends ServiceProvider
 
         Route::group(['namespace' => 'NewMarket\\Content\\Http\\Controllers'], function ($router) {
 
-            $cats = Category::getPublicCategories();
+            try {
+                $cats = Category::getPublicCategories();
+            } catch (QueryException $e) {
+                // migration has not been run, category table does not exist
+                info('CMS routes not available. Run content:install command.');
+                return;
+            }
 
             foreach ($cats as $category) {
 

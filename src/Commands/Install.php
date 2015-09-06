@@ -40,11 +40,11 @@ class Install extends Command {
             '--tag' => ['config']
         ]);
 
-        $this->info('Publishing CMS view files');
-        $this->call('vendor:publish', [
-            '--provider' => 'NewMarket\\Content\\Providers\\ContentServiceProvider',
-            '--tag' => ['views']
-        ]);
+//        $this->info('Publishing CMS view files');
+//        $this->call('vendor:publish', [
+//            '--provider' => 'NewMarket\\Content\\Providers\\ContentServiceProvider',
+//            '--tag' => ['views']
+//        ]);
 
         $this->info('Publishing CMS public assets');
         $this->call('vendor:publish', [
