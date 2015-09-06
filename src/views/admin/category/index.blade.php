@@ -11,14 +11,15 @@
 
     <div class="container cms cms_content">
 
-        <div class="row cms cms_category">
-            <h1 class="cms">Categories</h1>
-        </div>
         @if (Auth::check())
             <div class="cms cms_controls">
                 @include('newmarkets\content::admin.category.create_button')
             </div>
         @endif
+
+        <div class="row cms cms_category">
+            <h1 class="cms">Categories</h1>
+        </div>
 
         <?php $col = Config::get('content.col') ?>
         <div class="row cms">

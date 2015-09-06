@@ -11,6 +11,13 @@
 
     <div class="container cms cms_magazine">
 
+        @if (Auth::check())
+            <div class="cms cms_controls">
+                @include('newmarkets\content::admin.article.create_button')
+                @include('newmarkets\content::admin.article.list_button')
+            </div>
+        @endif
+
         <div class="row cms cms_category">
             @if (strlen($category->subtitle))
                 <h1 class="cms cms_title_and_sub">{{ $category->title }}:</h1>
@@ -22,12 +29,6 @@
                 <p class="cms cms_description">{{ $category->description }}</p>
             @endif
         </div>
-        @if (Auth::check())
-            <div class="cms cms_controls">
-                @include('newmarkets\content::admin.article.create_button')
-                @include('newmarkets\content::admin.article.list_button')
-            </div>
-        @endif
 
         <?php $col = Config::get('content.col') ?>
         @foreach ($articles as $article)

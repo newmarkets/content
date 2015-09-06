@@ -14,12 +14,6 @@
 
     <div class="container cms cms_content">
 
-        <div class="row cms cms_title">
-            <h1 class="cms">{{ $article->title }}</h1>
-            @if (strlen($article->subtitle))
-                <h2 class="cms">{{ $article->subtitle }}</h2>
-            @endif
-        </div>
         @if (Auth::check())
             <div class="cms cms_controls">
                 @include('newmarkets\content::admin.article.delete_button')
@@ -28,6 +22,13 @@
                 @include('newmarkets\content::admin.article.list_button')
             </div>
         @endif
+
+        <div class="row cms cms_title">
+            <h1 class="cms">{{ $article->title }}</h1>
+            @if (strlen($article->subtitle))
+                <h2 class="cms">{{ $article->subtitle }}</h2>
+            @endif
+        </div>
 
         <div class="row cms cms_byline">
             <p class="cms_author">

@@ -55,10 +55,7 @@ div.cms_magazine .cms_text {
 }
 .cms_controls {
     position: relative;
-    top: -100px;
-}
-.cms_content .cms_controls {
-    top: -56px;
+    top: 15px;
 }
 .cms_content_editor form .divider {
     color: #dddddd;
