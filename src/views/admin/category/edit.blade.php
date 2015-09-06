@@ -19,6 +19,7 @@
         var editorConfig = {
             col: '{{ $col }}',
             urlBase: '{{ (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] }}',
+            categoryBase: '{{ Config::get('content.category_base') }}',
             contentSaved: '{{ Lang::get('content::messages.content_saved') }}'
         };
         editorConfig.thisUrl = editorConfig.urlBase + '{{ $_SERVER['REQUEST_URI'] }}';

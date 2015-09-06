@@ -52,7 +52,7 @@
                                     @endif
                                 </td>
                                 <td class="cms_title">
-                                    <a href="{{ Config::get('app.url') . '/category/' . $category->id . '/edit' }}">
+                                    <a href="{{ Config::get('app.url') . '/' . Config::get('content.category_base') . '/' . $category->id . '/edit' }}">
                                         {{ $category->title }}
                                     </a>
                                 </td>

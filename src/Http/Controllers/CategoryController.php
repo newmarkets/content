@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
         if ($category) {
             if ($request->ajax()) {
-                return ['response' => 'Success', 'next' => $url];
+                return ['response' => 'success', 'next' => $url];
             }
             return redirect($url)->with('success', 'Category saved.');
         }
@@ -133,7 +133,7 @@ class CategoryController extends Controller
 
         if ($category) {
             if ($request->ajax()) {
-                return ['response' => 'Success', 'next' => $url];
+                return ['response' => 'success', 'next' => $url];
             }
             return redirect($url)->with('success', 'Category saved.');
         }
@@ -148,6 +148,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        if (Category::destroy([$id])) {
+
+            if ($this->request->ajax()) {
+                return ['response' => 'success'];
+            }
+            return redirectTo('/' . Config::get(content.category_base));
+        }
+        throw new NotFoundHttpException;
+
     }
+
 }

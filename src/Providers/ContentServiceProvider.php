@@ -139,7 +139,7 @@ class ContentServiceProvider extends ServiceProvider
 
             // This defines an administrative route. This controller handles creation and editing of categories.
             // It uses a RESTful interface so it can be called from a javascript application.
-            $router->resource('category', 'CategoryController');
+            $router->resource(Config::get('content.category_base'), 'CategoryController');
 
         });
 

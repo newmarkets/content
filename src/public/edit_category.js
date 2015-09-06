@@ -125,7 +125,7 @@ $(document).ready( function() {
     });
 
     $('.cms_content_editor button.cancel').on('click', function () {
-        window.location = editorConfig.urlBase + '/category';
+        window.location = editorConfig.urlBase + '/' + editorConfig.categoryBase;
     });
 
     $('.cms_content_editor .alert button.close').on('click', function () {

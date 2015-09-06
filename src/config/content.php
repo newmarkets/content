@@ -19,6 +19,11 @@ return [
     'style' => 'style',
     'script' => 'script',
 
+    // This setting controls the root of the url for the category editor. This is an administrative page
+    // that allows you to manage the categories. Using the default setting, that page will be available
+    // at http://yourdomain.com/cms. You can change this setting without affecting links to your content.
+    'category_base' => 'cms',
+
     // These settings control other section names which you can add to your master template in appropriate
     // places. These are not required.
     'title' => 'title',
@@ -27,11 +32,11 @@ return [
     'meta_description' => 'meta_description',
 
     // This flag tells CMS to show a preview of the most recent articles in all categories when the
-    // URL looks like http:://yourdomain.com/content. The alternative is to list the categories available.
+    // URL looks like http:://yourdomain.com/{category}. The alternative is to list the categories available.
     'show_latest' => false,
 
     // This flag tells CMS to show a preview of the most recent articles in one category--a magazine--when the
-    // URL looks like http://yourdomain.com/content/index. The alternative is to list the articles.
+    // URL looks like http://yourdomain.com/{category}/index. The alternative is to list the articles.
     'show_category_latest' => true,
 
     // URLs to articles are formed by lowercasing the title and joining the words with some character.
