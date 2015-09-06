@@ -5,6 +5,7 @@ namespace NewMarket\Content\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
+use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
 use NewMarket\Content\Requests\CategoryRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
