@@ -6,7 +6,7 @@ return [
     //    'extends' => 'master'
     // effectively puts an @extends('master') at the top of the CMS templates and thereby wraps CMS
     // content in your master.blade.php template.
-    'extends' => 'master',
+    'extends' => 'newmarkets\content::site',
 
     // This is the name of the section for the CMS content. Using the default value ("content"), the CMS
     // content will appear in your template wherever you place the @yields('content') directive.
@@ -19,17 +19,17 @@ return [
     'style' => 'style',
     'script' => 'script',
 
-    // This setting controls the root of the url for the category editor. This is an administrative page
-    // that allows you to manage the categories. Using the default setting, that page will be available
-    // at http://yourdomain.com/cms. You can change this setting without affecting links to your content.
-    'category_base' => 'cms',
-
     // These settings control other section names which you can add to your master template in appropriate
     // places. These are not required.
     'title' => 'title',
     'meta_title' => 'meta_title',
     'meta_keywords' => 'meta_keywords',
     'meta_description' => 'meta_description',
+
+    // This setting controls the root of the url for the category editor. This is an administrative page
+    // that allows you to manage the categories. Using the default setting, that page will be available
+    // at http://yourdomain.com/cms. You can change this setting without affecting links to your content.
+    'category_base' => 'cms',
 
     // This flag tells CMS to show a preview of the most recent articles in all categories when the
     // URL looks like http:://yourdomain.com/{category}. The alternative is to list the categories available.
