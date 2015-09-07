@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
-use NewMarket\Content\Requests\CategoryRequest;
+use NewMarket\Content\Requests\ArticleRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArticleController extends Controller
