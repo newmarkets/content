@@ -72,5 +72,5 @@
 @endsection
 
 @section(Config::get('content.title'))
-    {{ $category->title }}
+    {{ Lang::choice('content::messages.category', 2) }}
 @endsection
