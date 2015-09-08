@@ -1,6 +1,6 @@
 <?php namespace NewMarket\Content\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use NewMarket\Content\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
