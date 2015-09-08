@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function __construct(Request $request)
     {
         parent::__construct($request);
-//        $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
