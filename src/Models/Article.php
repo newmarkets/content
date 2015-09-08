@@ -67,6 +67,14 @@ class Article extends Model
      */
     protected $guarded = [];
 
+    public function setContentAttribute($value) {
+        $this->attributes['content'] = trim(str_replace('<br>', "\n", $value));
+    }
+
+    public function getContentAttribute($value) {
+        return str_replace("\n", '<br>', $value);
+    }
+
     public static function findPublicArticle($category_id, $slug) {
 
         return self::where('category_id', $category_id)

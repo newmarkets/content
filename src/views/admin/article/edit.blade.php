@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="content">{{ old('content', $article->content) }}</div>
+                <div role="tabpanel" class="tab-pane" id="content">{!! old('content', $article->content) !!}</div>
 
                 <div role="tabpanel" class="tab-pane" id="searching">
 
