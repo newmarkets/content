@@ -27,10 +27,9 @@ class CreateArticleTable extends Migration
             $table->string('description', 1000)->nullable();
             $table->longText('content');
             $table->string('meta_title')->nullable();
-            $table->string('meta_keywords')->nullable();
-            $table->string('meta_description', 1000)->nullable();
             $table->boolean('featured')->default(false);
             $table->boolean('active')->default(true);
+            $table->boolean('menu_item')->default(false);
             $table->string('filename')->nullable();
             $table->string('filename_description')->nullable();
             $table->unsignedInteger('category_id');
