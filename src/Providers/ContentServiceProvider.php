@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use NewMarket\Content\Commands\Install;
+use NewMarket\Content\Models\Cms;
 use NewMarket\Content\Models\Article;
 use NewMarket\Content\Models\Category;
 
@@ -34,6 +35,10 @@ class ContentServiceProvider extends ServiceProvider
     protected function registerFacades()
     {
 
+        App::bind('cms', function () {
+            return new Cms;
+        });
+
         App::bind('article', function () {
             return new Article;
         });
@@ -43,6 +48,7 @@ class ContentServiceProvider extends ServiceProvider
         });
 
         $loader = AliasLoader::getInstance();
+        $loader->alias('Cms', 'NewMarket\\Content\\Facades\\Cms');
         $loader->alias('Article', 'NewMarket\\Content\\Facades\\Article');
         $loader->alias('Category', 'NewMarket\\Content\\Facades\\Category');
 

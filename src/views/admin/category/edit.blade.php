@@ -29,7 +29,7 @@
 
         @if (Auth::check())
             <div class="cms cms_controls">
-                @if ($control == 'edit')
+                @if ($cms->control == 'edit')
                     @include('newmarkets\content::admin.category.delete_button')
                     @include('newmarkets\content::admin.category.create_button')
                 @endif
@@ -37,7 +37,7 @@
             </div>
         @endif
 
-        <h1>{{ $action }} {{ Lang::choice('content::messages.category', 1) }}</h1>
+        <h1>{{ $cms->action }} {{ Lang::choice('content::messages.category', 1) }}</h1>
 
         <form class="form-horizontal">
 

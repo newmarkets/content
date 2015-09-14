@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class Controller extends BaseController
 {
@@ -35,11 +36,21 @@ abstract class Controller extends BaseController
         $this->request = $request;
     }
 
+    /**
+     * Get the current category based on the URL
+     *
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     protected function getCategory()
     {
 
         $path = $this->request->segment(1);
         $this->category = Category::findPublicCategory($path);
+
+        if (!$this->category) {
+            throw new NotFoundHttpException('Category not found.');
+        }
+        return $this->category;
 
     }
 

@@ -49,16 +49,11 @@ class ContentController extends Controller
             $view = 'newmarkets\content::magazine';
         }
 
-        $this->getCategory();
-        if($this->category) {
+        $category = $this->getCategory();
 
-            $articles = Article::listFromCategoryPublic($this->category->id);
-            return view($view, [
-                'category' => $this->category,
-                'articles' => $articles
-            ]);
-        }
-        throw new NotFoundHttpException;
+        $articles = Article::listFromCategoryPublic($this->category->id);
+
+        return view($view, compact('category', 'articles'));
 
     }
 
@@ -70,18 +65,18 @@ class ContentController extends Controller
     {
 
         $this->getCategory();
-        if ($this->category) {
 
-            $this->getArticle();
-            if ($this->article) {
+        $this->getArticle();
 
-                return view('newmarkets\content::article', [
-                    'category' => $this->category,
-                    'article' => $this->article,
-                    'tags' => []
-                ]);
-            }
+        if ($this->article) {
+
+            return view('newmarkets\content::article', [
+                'category' => $this->category,
+                'article' => $this->article,
+                'tags' => []
+            ]);
         }
+
         throw new NotFoundHttpException;
 
     }

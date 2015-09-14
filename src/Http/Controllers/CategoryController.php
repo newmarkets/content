@@ -5,6 +5,7 @@ namespace NewMarket\Content\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
+use NewMarket\Content\Facades\Cms;
 use NewMarket\Content\Facades\Category;
 use NewMarket\Content\Requests\CategoryRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,7 +15,6 @@ class CategoryController extends Controller
     /**
      * Instantiate a new instance.
      *
-     * @return void
      */
     public function __construct(Request $request)
     {
@@ -43,8 +43,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $control = 'create';
-        $action = Lang::get('content::messages.add');
+        $cms = Cms::newInstance([
+            'control' => 'create',
+            'action' => Lang::get('content::messages.add')
+        ]);
 
         // create a more-or-less empty article template
         $category = Category::newInstance([
@@ -53,7 +55,7 @@ class CategoryController extends Controller
 
         if ($category) {
             return view('newmarkets\content::admin.category.edit',
-                compact('category', 'action', 'control'));
+                compact('category', 'cms'));
         }
         throw new NotFoundHttpException;
 
@@ -62,7 +64,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  CategoryRequest  $request
      * @return Response
      */
     public function store(CategoryRequest $request)
@@ -88,6 +90,7 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function show($id)
@@ -99,17 +102,20 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function edit($id)
     {
-        $control = 'edit';
-        $action = Lang::get('content::messages.edit');
+        $cms = Cms::newInstance([
+            'control' => 'edit',
+            'action' => Lang::get('content::messages.edit')
+        ]);
         $category = Category::find($id);
 
         if ($category) {
             return view('newmarkets\content::admin.category.edit',
-                compact('category', 'action', 'control'));
+                compact('category', 'cms'));
         }
         throw new NotFoundHttpException;
 
@@ -118,7 +124,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  CategoryRequest  $request
      * @param  int  $id
      * @return Response
      */
@@ -144,6 +150,7 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function destroy($id)

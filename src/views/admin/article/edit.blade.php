@@ -32,7 +32,7 @@
 
         @if (Auth::check())
             <div class="cms cms_controls">
-                @if ($control == 'edit')
+                @if ($cms->control == 'edit')
                     @include('newmarkets\content::admin.article.delete_button')
                     @include('newmarkets\content::admin.article.create_button')
                 @endif
@@ -40,7 +40,7 @@
             </div>
         @endif
 
-        <h1>{{ $action }} {{ Lang::choice('content::messages.article', 1) }}</h1>
+        <h1>{{ $cms->action }} {{ Lang::choice('content::messages.article', 1) }}</h1>
 
         <form class="form-horizontal">
 
@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="content">{!! old('content', $article->content) !!}</div>
+                <div role="tabpanel" class="tab-pane" id="content">{!! $article->renderMarkdown(old('content', $article->content)) !!}</div>
 
                 <div role="tabpanel" class="tab-pane" id="searching">
 
@@ -229,7 +229,7 @@
                         <label class="{{ $col }}-2 control-label" for="category_id">{{ Lang::choice('content::messages.category', 1) }}</label>
                         <div class="{{ $col }}-10">
                             <select class="form-control" id="category_id">
-                                @foreach($categories as $cat)
+                                @foreach($cms->getCategories() as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->title }}</option>
                                 @endforeach
                             </select>

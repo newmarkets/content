@@ -5,6 +5,7 @@ namespace NewMarket\Content\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use NewMarket\Content\Http\Controllers\Controller;
+use NewMarket\Content\Facades\Cms;
 use NewMarket\Content\Facades\Article;
 use NewMarket\Content\Facades\Category;
 use NewMarket\Content\Requests\ArticleRequest;
@@ -15,7 +16,6 @@ class ArticleController extends Controller
     /**
      * Instantiate a new instance.
      *
-     * @return void
      */
     public function __construct(Request $request)
     {
@@ -26,34 +26,34 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function index()
     {
         $this->getCategory();
-        if($this->category) {
 
-            $articles = Article::listFromCategoryAdmin($this->category->id);
-            return view('newmarkets\content::admin.article.index', [
-                'category' => $this->category,
-                'articles' => $articles
-            ]);
-        }
-        throw new NotFoundHttpException;
+        $articles = Article::listFromCategoryAdmin($this->category->id);
+        return view('newmarkets\content::admin.article.index', [
+            'category' => $this->category,
+            'articles' => $articles
+        ]);
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function create()
     {
-        $control = 'create';
-        $action = Lang::get('content::messages.add');
-        $categories = Category::getPublicCategories();
-        $this->getCategory();
-        $category = $this->category;
+        $cms = Cms::newInstance([
+            'control' => 'create',
+            'action' => Lang::get('content::messages.add')
+        ]);
+        $category = $this->getCategory();
 
         // try to pre-assign an author name
         $author = '';
@@ -75,7 +75,7 @@ class ArticleController extends Controller
 
         if ($category && $article) {
             return view('newmarkets\content::admin.article.edit',
-                compact('article', 'category', 'categories', 'action', 'control'));
+                compact('article', 'category', 'cms'));
         }
         throw new NotFoundHttpException;
 
@@ -84,6 +84,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function store(ArticleRequest $request)
@@ -98,7 +99,7 @@ class ArticleController extends Controller
         // this should be the url to the article
         $url = '/' . $this->category->path . '/' . $article->slug;
 
-        if ($this->category && $article) {
+        if ($article) {
             if ($request->ajax()) {
                 return ['response' => 'success', 'next' => $url];
             }
@@ -112,6 +113,7 @@ class ArticleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function show($id)
@@ -123,20 +125,21 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function edit($id)
     {
-        $control = 'edit';
-        $action = Lang::get('content::messages.edit');
-        $categories = Category::getPublicCategories();
-        $this->getCategory();
-        $category = $this->category;
+        $cms = Cms::newInstance([
+            'control' => 'edit',
+            'action' => Lang::get('content::messages.edit')
+        ]);
+        $category = $this->getCategory();
         $article = Article::find($id);
 
-        if ($category && $article) {
+        if ($article) {
             return view('newmarkets\content::admin.article.edit',
-                compact('article', 'category', 'categories', 'action', 'control'));
+                compact('article', 'category', 'cms'));
         }
         throw new NotFoundHttpException;
 
@@ -146,6 +149,7 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function update(ArticleRequest $request, $id)
@@ -164,7 +168,7 @@ class ArticleController extends Controller
             return ['response' => 'success', 'next' => $url];
         }
 
-        if ($this->category && $article) {
+        if ($article) {
             return redirect($url)->with('success', 'Article saved.');
         }
         return back()->withInput();
@@ -174,21 +178,19 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function destroy($id)
     {
         $this->getCategory();
 
-        if ($this->category) {
+        if (Article::destroy([$id])) {
 
-            if (Article::destroy([$id])) {
-
-                if ($this->request->ajax()) {
-                    return ['response' => 'success'];
-                }
-                return redirectTo($this->category->path);
+            if ($this->request->ajax()) {
+                return ['response' => 'success'];
             }
+            return redirectTo($this->category->path);
         }
         throw new NotFoundHttpException;
 

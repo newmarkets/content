@@ -68,11 +68,11 @@ class Article extends Model
     protected $guarded = [];
 
     public function setContentAttribute($value) {
-        $this->attributes['content'] = trim(str_replace('<br>', "\n", $value));
+        $this->attributes['content'] = trim(str_replace(['<br>', "\r"], ["\n", ''], $value));
     }
 
-    public function getContentAttribute($value) {
-        return str_replace("\n", '<br>', $value);
+    public function xgetContentAttribute($value) {
+        return str_replace(["\n", "\r"], ['<br>', ''], $value);
     }
 
     public static function findPublicArticle($category_id, $slug) {
