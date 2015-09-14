@@ -18,10 +18,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $subtitle
  * @property string $description
  * @property string $meta_title
- * @property string $meta_keywords
- * @property string $meta_description
  * @property boolean $featured
  * @property boolean $active
+ * @property boolean $menu
  *
  */
 class Category extends Model

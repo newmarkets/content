@@ -27,10 +27,9 @@ use League\CommonMark\CommonMarkConverter;
  * @property string $description
  * @property string $content
  * @property string $meta_title
- * @property string $meta_keywords
- * @property string $meta_description
  * @property boolean $featured
  * @property boolean $active
+ * @property boolean $menu_item
  * @property string $filename
  * @property string $filename_description
  * @property integer $category_id

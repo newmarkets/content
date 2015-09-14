@@ -29,10 +29,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $cms = Cms::newInstance();
         $categories = Category::getAdminCategories();
-        return view('newmarkets\content::admin.category.index', [
-            'categories' => $categories
-        ]);
+        return view('newmarkets\content::admin.category.index', compact('cms', 'categories'));
 
     }
 

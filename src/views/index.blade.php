@@ -59,11 +59,3 @@
 @section(Config::get('content.meta_title'))
     {{ $category->meta_title }}
 @endsection
-
-@section(Config::get('content.meta_keywords'))
-    {{ $category->meta_keywords }}
-@endsection
-
-@section(Config::get('content.meta_description'))
-    {{ $category->meta_description }}
-@endsection

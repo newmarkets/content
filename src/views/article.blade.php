@@ -78,11 +78,3 @@
 @section(Config::get('content.meta_title'))
     {{ $article->meta_title }}
 @endsection
-
-@section(Config::get('content.meta_keywords'))
-    {{ $article->meta_keywords }}
-@endsection
-
-@section(Config::get('content.meta_description'))
-    {{ $article->meta_description }}
-@endsection

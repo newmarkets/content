@@ -5,6 +5,7 @@ namespace NewMarket\Content\Http\Controllers;
 use Illuminate\Http\Request;
 use NewMarket\Content\Http\Controllers\Controller;
 use NewMarket\Content\Facades\Article;
+use NewMarket\Content\Facades\Cms;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentController extends Controller
@@ -43,6 +44,7 @@ class ContentController extends Controller
     public function showCategory()
     {
 
+        $cms = Cms::newInstance();
         $view = 'newmarkets\content::index';
 
         if (Config('content.show_category_latest')) {
@@ -53,7 +55,7 @@ class ContentController extends Controller
 
         $articles = Article::listFromCategoryPublic($this->category->id);
 
-        return view($view, compact('category', 'articles'));
+        return view($view, compact('cms', 'category', 'articles'));
 
     }
 
@@ -63,6 +65,7 @@ class ContentController extends Controller
      */
     public function showArticle()
     {
+        $cms = Cms::newInstance();
 
         $this->getCategory();
 
@@ -71,6 +74,7 @@ class ContentController extends Controller
         if ($this->article) {
 
             return view('newmarkets\content::article', [
+                'cms' => $cms,
                 'category' => $this->category,
                 'article' => $this->article,
                 'tags' => []

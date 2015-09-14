@@ -24,11 +24,11 @@ return [
     'sourcename' => 'Source name',
     'sourceurl' => 'Source URL',
     'meta_title' => 'Meta title', // title for the HTML meta tag
-    'meta_keywords' => 'Meta keywords', // content for the HTML meta keywords tag
-    'meta_description' => 'Meta description', // content for the HTML meta description tag
     'live_at' => 'Live date', // initial publication date
     'down_at' => 'Removal date', // final publication date
     'active' => 'Active', // is this article visible?
+    'menu' => 'Menu',
+    'menu_item' => 'Menu item',
     'featured' => 'Featured', // does this article show up on the Featured list?
     'filename' => 'Filename', // name for a downloadable file
     'filename_description' => 'File description',

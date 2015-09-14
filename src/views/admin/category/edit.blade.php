@@ -132,22 +132,6 @@
                             <span id="meta_title-error" class="sr-only"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="{{ $col }}-2 control-label" for="meta_keywords">{{ Lang::get('content::messages.meta_keywords') }}</label>
-                        <div class="{{ $col }}-10">
-                            <textarea rows="6" class="form-control" id="meta_keywords"
-                                    aria-describedby="meta_keywords-error">{{ old('meta_keywords', $category->meta_keywords) }}</textarea>
-                        </div>
-                        <span id="meta_keywords-error" class="sr-only"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="{{ $col }}-2 control-label" for="meta_description">{{ Lang::get('content::messages.meta_description') }}</label>
-                        <div class="{{ $col }}-10">
-                            <textarea rows="6" class="form-control" id="meta_description"
-                                    aria-describedby="meta_description-error">{{ old('meta_description', $category->meta_description) }}</textarea>
-                        </div>
-                        <span id="meta_description-error" class="sr-only"></span>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="publishing">
@@ -173,6 +157,18 @@
                                             aria-describedby="featured-error">
                                     {{ Lang::get('content::messages.featured') }}
                                     <span id="featured-error" class="sr-only"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="{{ $col }}-offset-2 {{ $col }}-10">
+                            <div class="checkbox">
+                                <label class="control-label">
+                                    <input id="menu" type="checkbox" @checked(old('menu', $category->menu))
+                                    aria-describedby="menu-error">
+                                    {{ Lang::get('content::messages.menu') }}
+                                    <span id="menu-error" class="sr-only"></span>
                                 </label>
                             </div>
                         </div>

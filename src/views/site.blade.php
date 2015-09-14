@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="@yield('meta-title')">
-    <meta name="keywords" content="@yield('meta-keywords')">
-    <meta name="decription" content="@yield('meta-description')">
     <title>@yield('title')</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -56,9 +54,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                @include('newmarkets\content::menu')
                 @if (Auth::check())
                     <li><a href="/{{ Config::get('content.category_base') }}">CMS {{ Lang::choice('content::messages.category', 2) }}</a></li>
                     <li><a href="{{ URL::to('auth/logout') }}">Log out</a></li>

@@ -50,6 +50,11 @@
                                     @else
                                         <span class="cms_featured glyphicon glyphicon-thumbs-up neutral"></span>
                                     @endif
+                                    @if ($category->menu)
+                                        <span class="cms_featured glyphicon glyphicon-th-list green"></span>
+                                    @else
+                                        <span class="cms_featured glyphicon glyphicon-th-list neutral"></span>
+                                    @endif
                                 </td>
                                 <td class="cms_title">
                                     <a href="{{ Config::get('app.url') . '/' . Config::get('content.category_base') . '/' . $category->id . '/edit' }}">

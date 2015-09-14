@@ -31,13 +31,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $this->getCategory();
+        $category = $this->getCategory();
+        $cms = Cms::newInstance();
 
         $articles = Article::listFromCategoryAdmin($this->category->id);
-        return view('newmarkets\content::admin.article.index', [
-            'category' => $this->category,
-            'articles' => $articles
-        ]);
+        return view('newmarkets\content::admin.article.index', compact('cms', 'category', 'articles'));
 
     }
 

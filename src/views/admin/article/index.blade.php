@@ -56,6 +56,11 @@
                                     @else
                                         <span class="cms_featured glyphicon glyphicon-thumbs-up neutral"></span>
                                     @endif
+                                    @if ($article->menu)
+                                        <span class="cms_featured glyphicon glyphicon-th-list green"></span>
+                                    @else
+                                        <span class="cms_featured glyphicon glyphicon-th-list neutral"></span>
+                                    @endif
                                 </td>
                                 <td class="cms_title">
                                     <a href="{{ Config::get('app.url') . '/' . $category->path . '/article/' . $article->id . '/edit' }}">
