@@ -23,8 +23,6 @@ return [
     // places. These are not required.
     'title' => 'title',
     'meta_title' => 'meta_title',
-    'meta_keywords' => 'meta_keywords',
-    'meta_description' => 'meta_description',
 
     // This setting controls the root of the url for the category editor. This is an administrative page
     // that allows you to manage the categories. Using the default setting, that page will be available
