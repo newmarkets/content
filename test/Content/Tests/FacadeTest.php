@@ -8,6 +8,7 @@ namespace Content\Tests;
 
 use Article;
 use Category;
+use Cms;
 
 class FacadeTest extends TestCase {
 
@@ -15,15 +16,17 @@ class FacadeTest extends TestCase {
 
         $this->assertEquals('NewMarket\\Content\\Models\\Article', get_class($this->app->make('article')));
 
-        $this->assertEquals('howdy', Article::howdy());
-
     }
 
     public function testCategoryResolution() {
 
         $this->assertEquals('NewMarket\\Content\\Models\\Category', get_class($this->app->make('category')));
 
-//        $this->assertEquals('howdy', Article::howdy());
+    }
+
+    public function testCmsResolution() {
+
+        $this->assertEquals('NewMarket\\Content\\Models\\Cms', get_class($this->app->make('cms')));
 
     }
 }

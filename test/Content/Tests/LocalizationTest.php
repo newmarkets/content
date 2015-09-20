@@ -14,25 +14,25 @@ class LocalizationTest extends TestCase {
 
         // The final parameter here is the locale. We could test other languages
         // by changing the locale and the expected value (first parameter).
-        $this->assertEquals('article|articles', Lang::get('content::messages.article', [], 'en'));
+        $this->assertEquals('Article|Articles', Lang::get('content::messages.article', [], 'en'));
 
     }
 
     public function testTrans() {
 
-        $this->assertEquals('article|articles', trans('content::messages.article', [], 'en'));
+        $this->assertEquals('Article|Articles', trans('content::messages.article', [], 'en'));
 
     }
 
     public function testChoice() {
 
-        $this->assertEquals('articles', Lang::choice('content::messages.article', 10, [], 'en'));
+        $this->assertEquals('Articles', Lang::choice('content::messages.article', 10, [], 'en'));
 
     }
 
     public function testTransChoice() {
 
-        $this->assertEquals('articles', trans_choice('content::messages.article', 10, [], 'en'));
+        $this->assertEquals('Articles', trans_choice('content::messages.article', 10, [], 'en'));
 
     }
 }
