@@ -19,7 +19,7 @@ Content in the system uses Markdown syntax for formatting. We are using
 [Pen](https://github.com/sofish/pen) as an editor with its optional markdown
 export option.
 
-This project makes an honest effort to support localization and assitive
+This project makes an honest effort to support localization and assistive
 technologies. Feel free to point out areas for improvement.
 
 Requirements
