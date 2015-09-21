@@ -5,12 +5,9 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use NewMarket\Content\Commands\Install;
-use NewMarket\Content\Models\Cms;
-use NewMarket\Content\Models\Article;
-use NewMarket\Content\Models\Category;
+use Category;
 
 class ContentServiceProvider extends ServiceProvider
 {
@@ -36,15 +33,15 @@ class ContentServiceProvider extends ServiceProvider
     {
 
         App::bind('cms', function () {
-            return new Cms;
+            return new \NewMarket\Content\Models\Cms;
         });
 
         App::bind('article', function () {
-            return new Article;
+            return new \NewMarket\Content\Models\Article;
         });
 
         App::bind('category', function () {
-            return new Category;
+            return new \NewMarket\Content\Models\Category;
         });
 
         $loader = AliasLoader::getInstance();
