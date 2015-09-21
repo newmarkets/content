@@ -61,6 +61,26 @@ class ServiceProviderTest extends TestCase {
                 // set up a known content path
                 (object) ['path' => 'foobar']
             ]);
+
+        // this will rebuild the routes
+        $provider = new ContentServiceProvider($this->app);
+        $provider->boot();
+
+        $this->assertHasNamedRoute('foobar.article.index');
+        $this->assertHasNamedRoute('foobar.article.create');
+        $this->assertHasNamedRoute('foobar.article.store');
+        $this->assertHasNamedRoute('foobar.article.edit');
+        $this->assertHasNamedRoute('foobar.article.update');
+        $this->assertHasNamedRoute('foobar.article.destroy');
+
+        $this->assertHasRoute('GET', 'foobar/article/slug');
+        $this->assertHasRoute('GET', 'foobar/{article}');
+        $this->assertHasRoute('GET', 'foobar');
+
+    }
+
+    public function testRouteToCms() {
+
         // ensure we have a known config value
         Config::set('content.category_base', 'baz');
 
@@ -68,34 +88,14 @@ class ServiceProviderTest extends TestCase {
         $provider = new ContentServiceProvider($this->app);
         $provider->boot();
 
-        /**
-         * @var \Illuminate\Routing\RouteCollection
-         */
-        $routeCol = $this->app['router']->getRoutes();
-
-        // resource routes are named
-        $this->assertNotNull($routeCol->getByName('foobar.article.index'));
-        $this->assertNotNull($routeCol->getByName('foobar.article.create'));
-        $this->assertNotNull($routeCol->getByName('foobar.article.store'));
-        $this->assertNotNull($routeCol->getByName('foobar.article.edit'));
-        $this->assertNotNull($routeCol->getByName('foobar.article.update'));
-        $this->assertNotNull($routeCol->getByName('foobar.article.destroy'));
-
-        // check some routes that are not named
-        // could improve this by checking method, too
-        $all_routes = $routeCol->getRoutes();
-        $uris = array_map(function ($route) {
-            return $route->getUri();
-        }, $all_routes);
-        $this->assertTrue(in_array('foobar/article/slug', $uris));
-        $this->assertTrue(in_array('foobar/{article}', $uris));
-        $this->assertTrue(in_array('foobar', $uris));
-
         // cms category management routes
-        $this->assertTrue(in_array('baz', $uris));
-        $this->assertTrue(in_array('baz/create', $uris));
-        $this->assertTrue(in_array('baz/{baz}', $uris));
-        $this->assertTrue(in_array('baz/{baz}/edit', $uris));
+        $this->assertHasRoute('GET', 'baz');
+        $this->assertHasRoute('GET', 'baz/create');
+        $this->assertHasRoute('POST', 'baz');
+        $this->assertHasRoute('GET', 'baz/{baz}');
+        $this->assertHasRoute('GET', 'baz/{baz}/edit');
+        $this->assertHasRoute('PUT', 'baz/{baz}');
+        $this->assertHasRoute('DELETE', 'baz/{baz}');
 
     }
 }
