@@ -2,10 +2,10 @@
 
 namespace NewMarket\Content\Http\Controllers;
 
+use Article;
+use Cms;
 use Illuminate\Http\Request;
 use NewMarket\Content\Http\Controllers\Controller;
-use NewMarket\Content\Facades\Article;
-use NewMarket\Content\Facades\Cms;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentController extends Controller

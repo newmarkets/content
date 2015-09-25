@@ -72,6 +72,7 @@ class ServiceProviderTest extends TestCase {
         $this->assertHasNamedRoute('foobar.article.edit');
         $this->assertHasNamedRoute('foobar.article.update');
         $this->assertHasNamedRoute('foobar.article.destroy');
+        $this->assertHasResourceRoute('foobar/article', ['show'], 'article');
 
         $this->assertHasRoute('GET', 'foobar/article/slug');
         $this->assertHasRoute('GET', 'foobar/{article}');
@@ -89,13 +90,7 @@ class ServiceProviderTest extends TestCase {
         $provider->boot();
 
         // cms category management routes
-        $this->assertHasRoute('GET', 'baz');
-        $this->assertHasRoute('GET', 'baz/create');
-        $this->assertHasRoute('POST', 'baz');
-        $this->assertHasRoute('GET', 'baz/{baz}');
-        $this->assertHasRoute('GET', 'baz/{baz}/edit');
-        $this->assertHasRoute('PUT', 'baz/{baz}');
-        $this->assertHasRoute('DELETE', 'baz/{baz}');
+        $this->assertHasResourceRoute('baz', [], 'baz');
 
     }
 }
