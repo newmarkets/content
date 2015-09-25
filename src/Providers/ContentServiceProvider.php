@@ -11,13 +11,6 @@ use Category;
 
 class ContentServiceProvider extends ServiceProvider
 {
-    protected $defer = false;
-
-    public static function compiles()
-    {
-        // @todo: fill out the list of compiled classes
-    }
-
     /**
      * Register the service provider.
      *
@@ -32,15 +25,15 @@ class ContentServiceProvider extends ServiceProvider
     protected function registerFacades()
     {
 
-        App::bind('cms', function () {
+        $this->app->bind('cms', function () {
             return new \NewMarket\Content\Models\Cms;
         });
 
-        App::bind('article', function () {
+        $this->app->bind('article', function () {
             return new \NewMarket\Content\Models\Article;
         });
 
-        App::bind('category', function () {
+        $this->app->bind('category', function () {
             return new \NewMarket\Content\Models\Category;
         });
 
@@ -165,6 +158,23 @@ class ContentServiceProvider extends ServiceProvider
             return "<?php echo substr(value($expression), 0, 10); ?>";
         });
 
+    }
+
+    public static function compiles()
+    {
+        $dir = dirname(__DIR__);
+        return [
+            $dir . '/Facades/Article.php',
+            $dir . '/Facades/Category.php',
+            $dir . '/Facades/Cms.php',
+            $dir . '/Http/Controllers/ContentController.php',
+            $dir . '/Http/Controllers/Controller.php',
+            $dir . '/Models/Article.php',
+            $dir . '/Models/Category.php',
+            $dir . '/Models/Cms.php',
+            $dir . '/Models/Model.php',
+            $dir . '/Providers/ContentServiceProvider.php'
+        ];
     }
 
 }
