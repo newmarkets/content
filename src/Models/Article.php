@@ -67,7 +67,9 @@ class Article extends Model
     protected $guarded = [];
 
     public function setContentAttribute($value) {
-        $this->attributes['content'] = trim(str_replace(['<br>', "\r"], ["\n", ''], $value));
+        $replace = ['<span>', '</span>', '<br>', "\r", '&gt;', '&lt;'];
+        $with = ['', '', "\n", '', '>', '<'];
+        $this->attributes['content'] = trim(str_replace($replace, $with, $value));
     }
 
     public function xgetContentAttribute($value) {
