@@ -1,9 +1,6 @@
 NewMarket Content Management
 =====
 
-_This project is a work-in-progress. Check back in a week or contact me
-if you want to help._
-
 This package is a Content Management System for Laravel 5.1. It could
 be used for a simple blog. Articles within the system are divided into
 categories--as many as you like. Security is based on the categories;
@@ -21,6 +18,14 @@ export option.
 
 This project makes an honest effort to support localization and assistive
 technologies. Feel free to point out areas for improvement.
+
+Status of the project
+-----
+
+Security features are not yet implemented. Currently, anyone who can log in to
+the site will be able to create, edit and delete articles in any category.
+
+There seem to be some issues with the Markdown editing.
 
 Requirements
 -----
@@ -174,3 +179,8 @@ For instance, the translation file for French would go in `translations/fr/messa
 Leave all of the keys in the array unchanged. Translate the right-hand side
 (the array values) into the target language. Don't translate any word that begins
 with a colon (:). The vertical bar separates singular and plural forms of the word.
+
+License
+-----
+
+Licensed under the MIT license.
