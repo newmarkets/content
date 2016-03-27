@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "~5.1",
-        "league/commonmark": "^0.10.0"
+        "league/commonmark": "~0.13"
     },
     "suggest": {
         "cocur/slugify": "Converts a string to a slug. Offers greater flexibility for non-English."
