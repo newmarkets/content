@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" serverName="beandemo" createEmptyFolders="true">
     <serverData>
       <paths name="Chamber">
         <serverdata>
@@ -17,6 +17,13 @@
         </serverdata>
       </paths>
       <paths name="Viddler">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Vikings NA">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -59,6 +66,13 @@
         </serverdata>
       </paths>
       <paths name="test project">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="web.conversations.local">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
