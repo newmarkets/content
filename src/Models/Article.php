@@ -122,15 +122,16 @@ class Article extends Model
         if (class_exists('\Cocur\Slugify\Slugify')) {
             // use Slugify if it is available
             $ruleset = Config::get('content.slug_ruleset');
-            $regexp = Config::get('content.slug_regexp');
 
-            $slugify = new Slugify($regexp, [
-                'lowercase' => Config::get('content.slug_lowercase')
+            $slugify = new Slugify([
+                'regexp' => Config::get('content.slug_regexp'),
+                'lowercase' => Config::get('content.slug_lowercase'),
+                'separator' => Config::get('content.slug_separator')
             ]);
             if (strlen($ruleset)) {
                 $slugify->activateRuleset($ruleset);
             }
-            return $slugify->slugify($title, Config::get('content.slug_separator'));
+            return $slugify->slugify($title);
 
         } else {
             // use the standard Laravel slug function

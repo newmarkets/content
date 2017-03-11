@@ -46,7 +46,7 @@ return [
     // We use a package called Slugify that can handle international character sets. Slugify offers a few
     // customizations. You can read more about them here https://github.com/cocur/slugify.
     'slug_lowercase' => true,
-    'slug_regexp' => null,
+    'slug_regexp' => '/([^A-Za-z0-9]|-)+/',
     'slug_ruleset' => '',
 
     // The layout of the package templates uses Bootstrap. Bootstrap's Grid offers a choice of screen widths
